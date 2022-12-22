@@ -13,14 +13,18 @@ import java.util.HashMap;
  *
  * @author zhao
  */
-public final class StarShards implements Parser {
+public final class StarShards {
 
     // 内置实现解析组件池
-    public final static LABELParser HTML_PARSER = new LABELParser();
+    public final static LABELParser LABEL_PARSER = new LABELParser();
+    public final static MEParser ME_PARSER = new MEParser();
+    public final static HTMLParser HTML_PARSER = new HTMLParser();
     private final static HashMap<String, Parser> STRING_PARSER_HASH_MAP = new HashMap<>();
 
     // 内置实现解析组件注册
     static {
+        StarShards.register(LABEL_PARSER);
+        StarShards.register(ME_PARSER);
         StarShards.register(HTML_PARSER);
     }
 
@@ -77,7 +81,9 @@ public final class StarShards implements Parser {
     }
 
     /**
-     * 使用指定的组件解析一份文件中的数据
+     * 使用指定的组件解析一份文件中的数据，使用IO流对一份数据进行加载，并将结果传递给解析器。
+     * <p>
+     * Use the specified component to parse the data in a file, use the IO stream to load the data, and pass the result to the parser.
      *
      * @param file      需要被解析的数据所在的文件对象
      * @param parseName 解析数据时使用的数据解析器
@@ -103,6 +109,17 @@ public final class StarShards implements Parser {
         }
     }
 
+    /**
+     * 使用指定的组件解析一份网络中的数据，使用URL对一份网络数据包中的数据进行加载，并将结果传递给解析器。
+     * <p>
+     * Use the specified component to parse the data in a network, use the URL to load the data in a network packet, and pass the result to the parser.
+     *
+     * @param url       需要被解析的URL网站，对该URL发起一个请求，并获取到回复的HTML页面
+     * @param parseName 解析数据时使用的数据解析器
+     * @param args      解析数据所需要的参数，不同解析器由不同的实现
+     * @return 解析器解析之后的结果对象
+     * @throws IOException 网络IO中可能会发生的错误
+     */
     public static Container[] parse(URL url, String parseName, String... args) throws IOException {
         Parser parser = STRING_PARSER_HASH_MAP.get(parseName);
         if (parser != null) {
@@ -123,26 +140,5 @@ public final class StarShards implements Parser {
             throw new RuntimeException("您想要使用的组件【" + parseName + "】似乎没有被注册，在这里没有找到它。\n" +
                     "It seems that the component [" + parseName + "] you want to use has not been registered, and it is not found here.");
         }
-    }
-
-    /**
-     * @return 解析器的名称，用于区别解析器之间的联系
-     */
-    @Override
-    public String getName() {
-        return "Star shards";
-    }
-
-    /**
-     * 解析一个字符串，该方法用于测试，如果正常，这里会返回一个null，
-     *
-     * @param data 任意数据
-     * @param args 任意数据
-     * @return 返回一个null
-     */
-    @Override
-    public Container[] parse(String data, String... args) {
-        System.out.println("感谢使用。");
-        return null;
     }
 }

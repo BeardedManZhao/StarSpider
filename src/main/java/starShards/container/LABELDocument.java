@@ -1,5 +1,7 @@
 package starShards.container;
 
+import starShards.ConstantRegion;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +19,13 @@ public class LABELDocument implements Container {
     public final HashMap<String, String> attribs;
     public final String Name;
 
+    protected LABELDocument(String[] text, String nowNodeText, HashMap<String, String> attribs, String name) {
+        Text = text;
+        this.nowNodeText = nowNodeText;
+        this.attribs = attribs;
+        Name = name;
+    }
+
     /**
      * 构造一个文档对象
      *
@@ -26,7 +35,7 @@ public class LABELDocument implements Container {
      */
     public LABELDocument(String[] text, HashMap<String, String> attribs, String name) {
         ArrayList<String> arrayList = new ArrayList<>(text.length + 16);
-        nowNodeText = text[0];
+        nowNodeText = text.length == 0 ? ConstantRegion.STRING_NULL : text[0];
         for (String s : text) {
             String trim = s.trim();
             if (trim.length() != 0) {
@@ -63,7 +72,6 @@ public class LABELDocument implements Container {
      * <p>
      * Get the data of the current node and all the child nodes of the current node. The separator between nodes is tab by default.
      */
-    @Override
     public String getChildrenText(String split) {
         final StringBuilder stringBuilder = new StringBuilder(this.Text.length * this.nowNodeText.length() + 16);
         for (String s : this.Text) {
@@ -80,7 +88,6 @@ public class LABELDocument implements Container {
      * <p>
      * The data of the current node and all its children are returned in an array.
      */
-    @Override
     public String[] getChildrenTextArray(boolean isNew) {
         if (isNew) {
             String[] strings = new String[this.Text.length];
@@ -96,7 +103,6 @@ public class LABELDocument implements Container {
      * <p>
      * Get the attributes of the node
      */
-    @Override
     public HashMap<String, String> getAttribs() {
         return this.attribs;
     }
@@ -107,7 +113,6 @@ public class LABELDocument implements Container {
      * <p>
      * Get the attributes of the node
      */
-    @Override
     public String getAttrib(String attrName) {
         return this.attribs.get(attrName);
     }

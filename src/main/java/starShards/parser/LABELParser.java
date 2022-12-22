@@ -57,7 +57,7 @@ public class LABELParser implements Parser {
      */
     @Override
     public String getName() {
-        return "LABEL";
+        return ConstantRegion.PARSER_NAME_LABLE;
     }
 
     /**
@@ -166,7 +166,6 @@ public class LABELParser implements Parser {
                     .append(ConstantRegion.REGEXP_MATCH_ALL2)
                     .append(ConstantRegion.REGEXP_GREEDY_SYMBOL);
         }
-        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 
