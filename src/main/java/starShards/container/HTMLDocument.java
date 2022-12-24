@@ -46,13 +46,24 @@ public class HTMLDocument extends LABELDocument {
     }
 
     /**
-     * 获取当下节点所有子节点中的某一个节点（含当前节点）
+     * 获取当下节点所有子节点中的起名为某个节点名称的所有节点（含当前节点）
      *
      * @param childrenNodeName 需要获取到的子节点的节点名字
      * @return 当前节点与当前所有子节点中的某一个指定节点数据
      */
     public HTMLDocument[] getAllChildrenByNodeName(String childrenNodeName) {
-        return (HTMLDocument[]) StarShards.HTML_PARSER.NodeParse(this.HTMLData, ConstantRegion.PARSER_NAME_HTML, childrenNodeName);
+        return (HTMLDocument[]) StarShards.HTML_PARSER.getDocumentByNodeName(this.HTMLData, false, ConstantRegion.PARSER_NAME_HTML, childrenNodeName);
+    }
+
+    /**
+     * 获取当下节点所有子节点中 属性为 childrenNodeAttribKey = childrenNodeAttribValue 的所有子节点（含当前节点）
+     *
+     * @param childrenNodeAttribKey   需要获取的子节点的属性名称
+     * @param childrenNodeAttribValue 需要获取的子节点的属性值
+     * @return 当前节点与当前所有子节点中的所有符合属性条件的节点文档对象
+     */
+    public HTMLDocument[] getAllChildrenByNodeAttrib(String childrenNodeAttribKey, String childrenNodeAttribValue) {
+        return (HTMLDocument[]) StarShards.HTML_PARSER.getDocumentByNodeAttrib(this.HTMLData, ConstantRegion.PARSER_NAME_HTML, childrenNodeAttribKey, childrenNodeAttribValue);
     }
 
     @Override

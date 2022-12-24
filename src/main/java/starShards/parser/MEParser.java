@@ -47,7 +47,7 @@ public class MEParser implements Parser {
     @Override
     public Container[] parse(String data, String... args) {
         if (args.length >= 1) {
-            Matcher matcher = COMPILE.matcher(data);
+            final Matcher matcher = COMPILE.matcher(data);
             ArrayList<ExpressionData> arrayList = new ArrayList<>();
             if ("def".equalsIgnoreCase(args[0])) {
                 while (matcher.find()) {
@@ -63,11 +63,12 @@ public class MEParser implements Parser {
                     arrayList.add(new ExpressionData(calculationByName.calculation(group), group));
                 } catch (WrongFormat e) {
                     arrayList.add(new ExpressionData(e.toString(), group));
+                } catch (RuntimeException ignored) {
                 }
             }
             return arrayList.toArray(new ExpressionData[0]);
         } else {
-            throw new RuntimeException("针对数学表达式的解析，您必须要将分隔符与计算组件类型在 args 的位置书写好。");
+            throw new RuntimeException("针对数学表达式的解析，您必须要将解析模式，在 args 的位置书写好。");
         }
     }
 }

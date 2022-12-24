@@ -16,6 +16,8 @@ import java.util.HashMap;
  */
 public class LABELParser implements Parser {
 
+    protected boolean childrenClass = false;
+
     protected LABELParser() {
     }
 
@@ -57,7 +59,7 @@ public class LABELParser implements Parser {
      */
     @Override
     public String getName() {
-        return ConstantRegion.PARSER_NAME_LABLE;
+        return ConstantRegion.PARSER_NAME_LABEL;
     }
 
     /**
@@ -67,7 +69,7 @@ public class LABELParser implements Parser {
      * @param args 节点集合，存在于集合中的节点都会被解析出来，其中从索引1开始就是待解析节点了，0 索引位的数据不做限制
      * @return 存在于集合中的所有节点的数据。
      */
-    public Container[] NodeParse(String data, String... args) {
+    public Container[] getDocumentByNodeName(String data, String... args) {
         String dataAll = ConstantRegion.HORIZONTAL_BAR_CHARACTER + data + ConstantRegion.HORIZONTAL_BAR_CHARACTER;
         final ArrayList<LABELDocument> arrayList = new ArrayList<>();
         for (String arg : args) {
@@ -107,20 +109,27 @@ public class LABELParser implements Parser {
      *
      * @param data 需要被解析的数据
      * @param args 解析器需要使用到的参数
-     *             索引0应为 您解析数据使用的手段 node
-     *             从1开始就是 您要解析的节点，您在这里输入的每个节点都会被解析到
+     *             索引0应为 您解析数据使用的手段
+     *             node：按照节点解析所有节点文档数据
+     *             如果选择此方式进行文档解析，那么您需要在从1开始的位置书写所有需要被解析的节点名称
+     *             nodePath：按照节点路径解析所有节点文档数据
+     *             如果选择此方式进行文档解析，那么您需要在从1开始的位置书写路径，符合路径描述的所有节点都会被解析
      * @return 解析器解析之后的结果数值
      */
     @Override
     public Container[] parse(String data, String... args) {
         String arg = args[0];
         if ("node".equalsIgnoreCase(arg)) {
-            return NodeParse(data, args);
+            return getDocumentByNodeName(data, args);
         } else if ("nodePath".equalsIgnoreCase(arg)) {
             return NodePathParse(data, args);
         }
-        throw new RuntimeException("您的解析模式【" + arg + "】在LABELParser中并没有实现，因此无法进行指定数据的解析。\n" +
-                "Your parsing mode [" + arg + "] is not implemented in LABELParser, so you cannot parse the specified data.");
+        if (!this.childrenClass) {
+            // 如果子类有拓展，就暂时不抛出异常，将解析任务交给子类进行
+            throw new RuntimeException("您的解析模式【" + arg + "】在LABELParser中并没有实现，因此无法进行指定数据的解析。\n" +
+                    "Your parsing mode [" + arg + "] is not implemented in LABELParser, so you cannot parse the specified data.");
+        }
+        return null;
     }
 
     /**

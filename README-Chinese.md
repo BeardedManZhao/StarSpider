@@ -1,10 +1,8 @@
 # StarShards
 
-## introduce
+## 介绍
 
-StarShards Parsing Library is a library provided for data parsing, which has many built-in data parsing components. It
-supports the parsing of network data packets, file objects, and string objects. It is a data parsing method implemented
-by Java, and a powerful tool that can meet the needs of crawlers, intelligent extraction, and so on.
+星陨解析库是一款针对数据解析提供的库，其中内置诸多数据解析组件，支持对网络数据包，文件对象，以及字符串对象进行解析，是Java实现的一种数据解析手段，是可以实现爬虫，智能提取等需求的强悍工具。
 
 [//]: # (### 如何获取？)
 
@@ -26,50 +24,40 @@ by Java, and a powerful tool that can meet the needs of crawlers, intelligent ex
 
 [//]: # (```)
 
-### What is the architecture like?
+### 架构是什么样的？
 
-In the framework, users can directly interact with starshards portal class (starShards. parser. StarShards). Through
-this class, you can extract and parse the contents of URL, FILE, String, and three objects. Users can transfer formal
-parameters to starshards analytic functions according to their needs to achieve different effects.
+在框架中，用户直接与星陨门户类(starShards.parser.StarShards)进行交互，通过该类，可对URL,FILE,String，三种对象进行内容提取与解析，用户可以根据自己的需求向星陨解析函数中传递形参，实现不同效果。
 
-StarShards portal will obtain the corresponding components from the hash table according to the formal parameters passed
-by the user for data analysis, and directly pass the component analysis result object through the StarShards portal
-class (starShards. parser. StarShards)
+星陨门户会根据用户传递的形参，从哈希表中获取到对应的组件进行数据解析，并将组件解析结果对象直接通过星陨门户类(starShards.parser.StarShards)
+返回给用户，用户可根据结果中的各类函数进行更多的操作，目前的结果对象有如下几种。
 
-It is returned to the user. The user can perform more operations according to various functions in the result. The
-current result objects are as follows.
+#### 结果对象的类型与作用
 
-#### Type and function of result object
+| 结果对象数据类型                            | 该结果类型对应的提取组件                    | 该结果类型的特有功能                          | 该结果类型的支持版本 |
+|-------------------------------------|---------------------------------|-------------------------------------|------------|
+| starShards.container.LABELDocument  | starShards.parser.LABELParser   | 面向标签节点进行数据提取操作                      | v1.0       |
+| starShards.container.HTMLDocument   | starShards.parser.HTMLParser    | 面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现 | v1.0       |
+| starShards.container.ExpressionData | starShards.parser.MEParser      | 面向每一个数学表达式进行数据提取操作                  | v1.0       |
+| starShards.container.StringData     | starShards.parser.PatternParser | 面向每一个符合提取条件的字符串                     | v1.0       |
 
-| Result Object Data Type             | Corresponding resolution component | Special functions                   | Supported versions |
-|-------------------------------------|------------------------------------|-------------------------------------|--------------------|
-| starShards.container.LABELDocument  | starShards.parser.LABELParser      | 面向标签节点进行数据提取操作                      | v1.0               |
-| starShards.container.HTMLDocument   | starShards.parser.HTMLParser       | 面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现 | v1.0               |
-| starShards.container.ExpressionData | starShards.parser.MEParser         | 面向每一个数学表达式进行数据提取操作                  | v1.0               |
-| starShards.container.StringData     | starShards.parser.PatternParser    | 面向每一个符合提取条件的字符串                     | v1.0               |
+#### 解析组件的类型与作用
 
-#### Resolve the type and function of components
-
-| Component name     | Component Type                  | Author URI                        | Format oriented   | Registered to portal | effect                                              | Supported versions |
-|--------------------|---------------------------------|-----------------------------------|-------------------|----------------------|-----------------------------------------------------|--------------------|
-| NULL               | starShards.parser.StarShards    | https://github.com/BeardedManZhao | URL, FILE, String | NO                   | 与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务                | v1.0               |
-| PARSER_NAME_LABEL  | starShards.parser.LABELParser   | https://github.com/BeardedManZhao | 任何使用标签进行数据存储的文本内容 | YES                  | 提取与解析标签数据中的每一个节点                                    | v1.0               |
-| PARSER_NAME_HTML   | starShards.parser.HTMLParser    | https://github.com/BeardedManZhao | HTML XML          | YES                  | 通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象 | v1.0               |
-| PARSER_NAME_REGEXP | starShards.parser.PatternParser | https://github.com/BeardedManZhao | String            | YES                  | 通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据              | v1.0               |
-| PARSER_NAME_ME     | starShards.parser.MEParser      | https://github.com/BeardedManZhao | String            | YES                  | 智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果                    | v1.0               |
-| ...                | ...                             | Dear friends                      | ...               | NO                   | 事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星陨门户        | ...                |
+| 组件名称(常量区中的常量名)     | 组件类型                            | 作者主页                              | 面向格式              | 已注册至门户 | 组件作用                                                | 组件支持版本 |
+|--------------------|---------------------------------|-----------------------------------|-------------------|--------|-----------------------------------------------------|--------|
+| NULL               | starShards.parser.StarShards    | https://github.com/BeardedManZhao | URL, FILE, String | NO     | 与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务                | v1.0   |
+| PARSER_NAME_LABEL  | starShards.parser.LABELParser   | https://github.com/BeardedManZhao | 任何使用标签进行数据存储的文本内容 | YES    | 提取与解析标签数据中的每一个节点                                    | v1.0   |
+| PARSER_NAME_HTML   | starShards.parser.HTMLParser    | https://github.com/BeardedManZhao | HTML XML          | YES    | 通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象 | v1.0   |
+| PARSER_NAME_REGEXP | starShards.parser.PatternParser | https://github.com/BeardedManZhao | String            | YES    | 通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据              | v1.0   |
+| PARSER_NAME_ME     | starShards.parser.MEParser      | https://github.com/BeardedManZhao | String            | YES    | 智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果                    | v1.0   |
+| ...                | ...                             | Dear friends                      | ...               | NO     | 事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星陨门户        | ...    |
 
 ## 有哪些功能？
 
-In the StarShards portal, users can directly set parameters and parse objects through the parse function to obtain the
-parsing results. The parsing work in the library is performed by the parser. There are many implementations of the
-parser, and each component registered to Starlite can be accessed through the portal. Next, we will show more
-information.
+在星陨门户中，用户可以直接通过parse函数设置参数与解析对象，进而获取到解析结果，在库中的解析工作由解析器进行，解析器的实现有很多，每一个注册到星陨的组件都可以使用门户访问到，接下来就展示下更多的信息。
 
 ### 标签文本的解析
 
-A typical example of label text is HTML. For the task of parsing such text, you can use the label component (
-LABELParser), as shown below
+标签文本的典型例子就是HTML，针对这类文本的解析任务，可以使用label组件（LABELParser），具体使用方式如下所示
 
 ```java
 package starShards;
@@ -127,12 +115,8 @@ public final class MAIN {
 
 ### HTML或XML属性的查找
 
-In the library, there is a component, HTMLParser, which is dedicated to extracting data such as HTML and XML. It extends
-a new function based on the label component (LABELParser), that is, it searches through attributes. It has all the
-functions of the label component, and it is also HTML
-
-The crawling of XML texts has been optimized, making the component much better for crawling HTML and XML. For the
-demonstration effect, such a file has been prepared. The file content is shown below.
+在库中有一个组件HTMLParser是专用于提取HTML与XML这类数据的，它在label组件（LABELParser）的基础上拓展了一个新的功能，就是通过属性查找，它具有label组件的所有功能，同时为HTML
+XML这两类文本的爬取进行了优化，使得该组件针对HTML与XML的爬取性能要好得多，为演示效果，准备好了这样的一份文件，文件内容如下所示。
 
 ```html
 
@@ -259,9 +243,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
 </table>
 ```
 
-There are two tables. There is an ID attribute in the table label. The ID attributes of the two tables are different.
-Now we want to obtain the node object of the second table. The specific operation method is shown as follows (it shows
-that the method of obtaining through attributes is the same as that of LABELParser).
+其中有两个表，表标签中有一个id属性，两张表的id属性不同，现在我们想要获取到第二张表的节点对象，具体操作方式如下所示（展示的是通过属性获取，通过节点获取的方式与LABELParser是一样的）。
 
 ```java
 package starShards;
@@ -308,10 +290,7 @@ PARSER_NAME_ME	starShards.parser.MEParser	https://github.com/BeardedManZhao	Stri
 
 ### 数学表达式的提取
 
-For a piece of chaotic and unformatted data containing mathematical expressions, there is a component in the library (
-starShards. parser. MEParser) that can extract all the mathematical expressions and judge whether to calculate the
-results according to the parameters passed by the user. Next is the demonstration of the use of this component (directly
-crawl all the mathematical expressions in a page of Baidu Encyclopedia here).
+针对一段包含数学表达式的混乱无格式的数据，库中有一个组件（starShards.parser.MEParser）可以提取出所有的数学表达式，并根据用户传递的参数来判断是否需要计算出结果，接下来就是该组件的使用演示（在这里直接爬取百度百科一个页面中的所有数学表达式）。
 
 ```java
 package starShards;
@@ -342,8 +321,7 @@ public final class MAIN {
 
 ### 正则表达式的匹配
 
-If you want to use regular expressions to extract data, there is also a component in the library that supports you to do
-this. The next step is to demonstrate the use of this component
+用户如果想要使用正则表达式提取数据，库中也有一个组件支持用户进行这样的操作，接下来就是该组件的使用演示
 
 ```java
 package starShards;
@@ -372,7 +350,7 @@ public final class MAIN {
 }
 ```
 
-- Calculation results
+- 计算结果
 
 ```
 123
@@ -380,11 +358,9 @@ public final class MAIN {
 2341233
 ```
 
-## More information
+## 更多信息
 
-Thank you for your use. The parsing components in the library will flow and continue to be optimized at any time. If you
-want to register the components you have implemented with Starlite, please send the source code and some information to
-your mailbox Liming7887@qq.com In fact, we are looking forward to adding your implementation to the portal.
+感谢各位的使用，库中的解析组件将会随时时间的流动而不断优化，如果各位想要将自己实现的组件注册到星陨中，请将源码以及一些信息发送到邮箱Liming7887@qq.com中，事实上我们很期待将您的实现加入到门户中。
 <hr>
 
 - date: 2022-12-24

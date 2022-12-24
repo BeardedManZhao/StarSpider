@@ -1,5 +1,7 @@
 package starShards.parser;
 
+import com.sun.istack.internal.NotNull;
+import starShards.ConstantRegion;
 import starShards.container.Container;
 
 import java.io.*;
@@ -19,6 +21,8 @@ public final class StarShards {
     public final static LABELParser LABEL_PARSER = new LABELParser();
     public final static MEParser ME_PARSER = new MEParser();
     public final static HTMLParser HTML_PARSER = new HTMLParser();
+    public final static PatternParser PATTERN_PARSER = new PatternParser();
+    public final static float VERSION = 1.0f;
     private final static HashMap<String, Parser> STRING_PARSER_HASH_MAP = new HashMap<>();
 
     // 内置实现解析组件注册
@@ -26,6 +30,7 @@ public final class StarShards {
         StarShards.register(LABEL_PARSER);
         StarShards.register(ME_PARSER);
         StarShards.register(HTML_PARSER);
+        StarShards.register(PATTERN_PARSER);
     }
 
     private StarShards() {
@@ -36,6 +41,7 @@ public final class StarShards {
      *
      * @param parser 需要被注册的组件
      */
+    @NotNull
     public static void register(Parser parser) {
         STRING_PARSER_HASH_MAP.put(parser.getName(), parser);
     }
@@ -46,6 +52,7 @@ public final class StarShards {
      * @param Name 需要被注销的组件的名称
      * @return 被注销的组件
      */
+    @NotNull
     public static Parser unRegister(String Name) {
         return STRING_PARSER_HASH_MAP.remove(Name);
     }
@@ -123,10 +130,10 @@ public final class StarShards {
     public static Container[] parse(URL url, String parseName, String... args) throws IOException {
         Parser parser = STRING_PARSER_HASH_MAP.get(parseName);
         if (parser != null) {
-            InputStream inputStream = url.openStream();
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[65535];
+            final InputStream inputStream = url.openStream();
+            final BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[ConstantRegion.Packet_size];
             int offset;
             while ((offset = bufferedInputStream.read(buffer)) != -1) {
                 byteArrayOutputStream.write(buffer, 0, offset);
