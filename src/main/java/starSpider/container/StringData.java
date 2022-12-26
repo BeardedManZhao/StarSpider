@@ -1,4 +1,4 @@
-package starShards.container;
+package starSpider.container;
 
 /**
  * 字符串匹配对象，其中存储的是由解析器按照正则解析出来的字符串对象，在字符串对象中存储的是内容与匹配正则两个数据。

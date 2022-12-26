@@ -1,8 +1,8 @@
-package starShards.parser;
+package starSpider.parser;
 
-import starShards.ConstantRegion;
-import starShards.container.Container;
-import starShards.container.StringData;
+import starSpider.ConstantRegion;
+import starSpider.container.Container;
+import starSpider.container.StringData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,11 +1,12 @@
-package starShards.parser;
+package starSpider.parser;
 
-import starShards.ConstantRegion;
-import starShards.container.Container;
-import starShards.container.LABELDocument;
+import starSpider.ConstantRegion;
+import starSpider.container.Container;
+import starSpider.container.LABELDocument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * LABEL文件解析组件，支持对标签文档进行数据解析。
@@ -16,6 +17,11 @@ import java.util.HashMap;
  */
 public class LABELParser implements Parser {
 
+    protected final static Pattern REGEXP_LABEL_REGULARITY_PATTERN = Pattern.compile(ConstantRegion.REGEXP_LABEL_REGULARITY);
+    protected final static Pattern GREATER_THAN_SIGN_STRING_PATTERN = Pattern.compile(ConstantRegion.GREATER_THAN_SIGN_STRING);
+    protected final static Pattern REGEXP_SPACE_ALL_PATTERN = Pattern.compile(ConstantRegion.REGEXP_SPACE_ALL);
+    protected final static Pattern REGEXP_COMMA_ALL_PATTERN = Pattern.compile(ConstantRegion.REGEXP_COMMA_ALL);
+    protected final static Pattern REGEXP_LABEL_ATTRIBUTE_SEGMENTATION = Pattern.compile(ConstantRegion.REGEXP_LABEL_ATTRIBUTE_SEGMENTATION);
     protected boolean childrenClass = false;
 
     protected LABELParser() {
@@ -25,11 +31,11 @@ public class LABELParser implements Parser {
         for (int i = 1; i < text.length - 1; i++) {
             // 开始提取当前节点的属性
             HashMap<String, String> hashMap = new HashMap<>();
-            String[] s1 = text[i].replaceAll(ConstantRegion.REGEXP_LABEL_REGULARITY, ConstantRegion.COMMA_STRING).split(ConstantRegion.GREATER_THAN_SIGN_STRING);
+            String[] s1 = GREATER_THAN_SIGN_STRING_PATTERN.split(REGEXP_LABEL_REGULARITY_PATTERN.matcher(text[i]).replaceAll(ConstantRegion.COMMA_STRING));
             if (s1.length >= 2) {
-                for (String s : s1[0].split(ConstantRegion.REGEXP_SPACE_ALL)) {
+                for (String s : REGEXP_SPACE_ALL_PATTERN.split(s1[0])) {
                     if (s.length() != 0) {
-                        String[] split = s.split(ConstantRegion.REGEXP_LABEL_ATTRIBUTE_SEGMENTATION);
+                        String[] split = REGEXP_LABEL_ATTRIBUTE_SEGMENTATION.split(s);
                         if (split.length >= 2) {
                             hashMap.put(split[0].trim(), split[1].trim());
                         }
@@ -37,7 +43,7 @@ public class LABELParser implements Parser {
                 }
                 String s = s1[1];
                 if (s.length() != 0) {
-                    String[] split = s.split(ConstantRegion.REGEXP_COMMA_ALL);
+                    String[] split = REGEXP_COMMA_ALL_PATTERN.split(s);
                     if (split.length != 0) {
                         arrayList.add(new LABELDocument(split, hashMap, nowNode));
                     }
@@ -45,7 +51,7 @@ public class LABELParser implements Parser {
             } else {
                 String s = s1[0];
                 if (s.length() != 0) {
-                    String[] split = s.split(ConstantRegion.REGEXP_COMMA_ALL);
+                    String[] split = REGEXP_COMMA_ALL_PATTERN.split(s);
                     if (split.length != 0) {
                         arrayList.add(new LABELDocument(split, hashMap, nowNode));
                     }

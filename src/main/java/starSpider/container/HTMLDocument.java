@@ -1,7 +1,7 @@
-package starShards.container;
+package starSpider.container;
 
-import starShards.ConstantRegion;
-import starShards.parser.StarShards;
+import starSpider.ConstantRegion;
+import starSpider.parser.StarSpider;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 public class HTMLDocument extends LABELDocument {
     // (?<=<table[\s\S]*)<[\s\S]*(?=</table>)
     public final static Pattern CHILDREN_REX = Pattern.compile("(?<=<)[^/].*?.*?(?=>+?)");
+    public final static Pattern REGEXP_INVISIBLE_CHARACTERS_ALL_PATTERN = Pattern.compile(ConstantRegion.REGEXP_INVISIBLE_CHARACTERS_ALL);
     public final String childrenNodeName;
     public final String HTMLData;
 
@@ -30,7 +31,7 @@ public class HTMLDocument extends LABELDocument {
         this.HTMLData = HTMLData;
         Matcher matcher = HTMLDocument.CHILDREN_REX.matcher(this.HTMLData);
         if (matcher.find(2)) {
-            this.childrenNodeName = matcher.group().split("\\s+")[0];
+            this.childrenNodeName = REGEXP_INVISIBLE_CHARACTERS_ALL_PATTERN.split(matcher.group())[0];
         } else this.childrenNodeName = null;
     }
 
@@ -42,7 +43,7 @@ public class HTMLDocument extends LABELDocument {
     public HTMLDocument getChildren() {
         // 获取到子标签
         if (this.childrenNodeName == null) return null;
-        return (HTMLDocument) StarShards.HTML_PARSER.ANodeParse(this.HTMLData, this.childrenNodeName, 2);
+        return (HTMLDocument) StarSpider.HTML_PARSER.ANodeParse(this.HTMLData, this.childrenNodeName, 2);
     }
 
     /**
@@ -52,7 +53,7 @@ public class HTMLDocument extends LABELDocument {
      * @return 当前节点与当前所有子节点中的某一个指定节点数据
      */
     public HTMLDocument[] getAllChildrenByNodeName(String childrenNodeName) {
-        return (HTMLDocument[]) StarShards.HTML_PARSER.getDocumentByNodeName(this.HTMLData, false, ConstantRegion.PARSER_NAME_HTML, childrenNodeName);
+        return (HTMLDocument[]) StarSpider.HTML_PARSER.getDocumentByNodeName(this.HTMLData, false, ConstantRegion.PARSER_NAME_HTML, childrenNodeName);
     }
 
     /**
@@ -63,7 +64,7 @@ public class HTMLDocument extends LABELDocument {
      * @return 当前节点与当前所有子节点中的所有符合属性条件的节点文档对象
      */
     public HTMLDocument[] getAllChildrenByNodeAttrib(String childrenNodeAttribKey, String childrenNodeAttribValue) {
-        return (HTMLDocument[]) StarShards.HTML_PARSER.getDocumentByNodeAttrib(this.HTMLData, ConstantRegion.PARSER_NAME_HTML, childrenNodeAttribKey, childrenNodeAttribValue);
+        return (HTMLDocument[]) StarSpider.HTML_PARSER.getDocumentByNodeAttrib(this.HTMLData, ConstantRegion.PARSER_NAME_HTML, childrenNodeAttribKey, childrenNodeAttribValue);
     }
 
     @Override

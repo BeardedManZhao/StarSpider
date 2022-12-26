@@ -1,9 +1,9 @@
-package starShards.parser;
+package starSpider.parser;
 
 import com.sun.istack.internal.NotNull;
-import starShards.ConstantRegion;
-import starShards.container.Container;
-import starShards.container.HTMLDocument;
+import starSpider.ConstantRegion;
+import starSpider.container.Container;
+import starSpider.container.HTMLDocument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class HTMLParser extends LABELParser {
 
-    public final static Pattern ATTRIBUTE_PATTEN = Pattern.compile("<.*?(?=>)");
+    protected final static Pattern ATTRIBUTE_PATTEN = Pattern.compile("<.*?(?=>)");
 
     public HTMLParser() {
         super.childrenClass = true;
@@ -120,14 +120,14 @@ public class HTMLParser extends LABELParser {
         HashMap<String, String> hashMap = new HashMap<>();
         Matcher matcher1 = ATTRIBUTE_PATTEN.matcher(group);
         if (matcher1.find()) {
-            for (String s : matcher1.group().split(" +")) {
-                String[] split = s.split("=");
+            for (String s : REGEXP_SPACE_ALL_PATTERN.split(matcher1.group())) {
+                String[] split = REGEXP_LABEL_ATTRIBUTE_SEGMENTATION.split(s);
                 if (split.length >= 2) {
                     hashMap.put(split[0], split[1]);
                 }
             }
         }
-        String[] split = group.split("<.*?>");
+        String[] split = REGEXP_LABEL_REGULARITY_PATTERN.split(group);
         ArrayList<String> arrayList = new ArrayList<>(split.length + 16);
         for (String s : split) {
             String trim = s.trim();
@@ -145,7 +145,7 @@ public class HTMLParser extends LABELParser {
      */
     @Override
     public Container[] NodePathParse(String data, String... args) {
-        StringBuilder stringBuilder = new StringBuilder(args.length << 12);
+        final StringBuilder stringBuilder = new StringBuilder(args.length << 4);
         stringBuilder.append("[\\s\\S]*");
         // <colgroup.*>?[\s\S]*?<col.*>?|</col>[\s\S]*</colgroup>
         // <table.*>?|</table>

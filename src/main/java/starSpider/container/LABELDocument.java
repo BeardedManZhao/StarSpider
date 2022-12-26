@@ -1,6 +1,6 @@
-package starShards.container;
+package starSpider.container;
 
-import starShards.ConstantRegion;
+import starSpider.ConstantRegion;
 
 import java.util.ArrayList;
 import java.util.HashMap;

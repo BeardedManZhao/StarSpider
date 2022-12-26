@@ -1,21 +1,22 @@
-package starShards.parser;
+package starSpider.parser;
 
 import com.sun.istack.internal.NotNull;
-import starShards.ConstantRegion;
-import starShards.container.Container;
+import starSpider.ConstantRegion;
+import starSpider.container.Container;
 
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
- * 星陨爬虫解析库门户，在这里指定各类爬虫组件进行数据解析任务，对各类组件可以进行统一管理。
+ * 星蛛爬虫解析库门户，在这里指定各类爬虫组件进行数据解析任务，对各类组件可以进行统一管理。
  * <p>
- * Starlite reptile analysis library portal, where all kinds of reptile components are designated for data analysis tasks, and all kinds of components can be managed uniformly.
+ * StarSpider reptile analysis library portal, where all kinds of reptile components are designated for data analysis tasks, and all kinds of components can be managed uniformly.
  *
  * @author zhao
  */
-public final class StarShards {
+public final class StarSpider {
 
     // 内置实现解析组件池
     public final static LABELParser LABEL_PARSER = new LABELParser();
@@ -27,17 +28,17 @@ public final class StarShards {
 
     // 内置实现解析组件注册
     static {
-        StarShards.register(LABEL_PARSER);
-        StarShards.register(ME_PARSER);
-        StarShards.register(HTML_PARSER);
-        StarShards.register(PATTERN_PARSER);
+        StarSpider.register(LABEL_PARSER);
+        StarSpider.register(ME_PARSER);
+        StarSpider.register(HTML_PARSER);
+        StarSpider.register(PATTERN_PARSER);
     }
 
-    private StarShards() {
+    private StarSpider() {
     }
 
     /**
-     * 将一个解析组件注册到星陨门户中。
+     * 将一个解析组件注册到星蛛门户中。
      *
      * @param parser 需要被注册的组件
      */
@@ -47,7 +48,7 @@ public final class StarShards {
     }
 
     /**
-     * 将一个解析组件从星陨门户中注销注册
+     * 将一个解析组件从星蛛门户中注销注册
      *
      * @param Name 需要被注销的组件的名称
      * @return 被注销的组件
@@ -114,6 +115,13 @@ public final class StarShards {
             throw new RuntimeException("您想要使用的组件【" + parseName + "】似乎没有被注册，在这里没有找到它。\n" +
                     "It seems that the component [" + parseName + "] you want to use has not been registered, and it is not found here.");
         }
+    }
+
+    /**
+     * @return 所有已注册到门户的组件名称。
+     */
+    public static Set<String> listAllParserName() {
+        return STRING_PARSER_HASH_MAP.keySet();
     }
 
     /**

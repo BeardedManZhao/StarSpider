@@ -28,13 +28,13 @@ by Java, and a powerful tool that can meet the needs of crawlers, intelligent ex
 
 ### What is the architecture like?
 
-In the framework, users can directly interact with starshards portal class (starShards. parser. StarShards). Through
+In the framework, users can directly interact with starshards portal class (starSpider. parser. StarShards). Through
 this class, you can extract and parse the contents of URL, FILE, String, and three objects. Users can transfer formal
 parameters to starshards analytic functions according to their needs to achieve different effects.
 
 StarShards portal will obtain the corresponding components from the hash table according to the formal parameters passed
 by the user for data analysis, and directly pass the component analysis result object through the StarShards portal
-class (starShards. parser. StarShards)
+class (starSpider. parser. StarShards)
 
 It is returned to the user. The user can perform more operations according to various functions in the result. The
 current result objects are as follows.
@@ -43,39 +43,39 @@ current result objects are as follows.
 
 | Result Object Data Type             | Corresponding resolution component | Special functions                   | Supported versions |
 |-------------------------------------|------------------------------------|-------------------------------------|--------------------|
-| starShards.container.LABELDocument  | starShards.parser.LABELParser      | 面向标签节点进行数据提取操作                      | v1.0               |
-| starShards.container.HTMLDocument   | starShards.parser.HTMLParser       | 面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现 | v1.0               |
-| starShards.container.ExpressionData | starShards.parser.MEParser         | 面向每一个数学表达式进行数据提取操作                  | v1.0               |
-| starShards.container.StringData     | starShards.parser.PatternParser    | 面向每一个符合提取条件的字符串                     | v1.0               |
+| starSpider.container.LABELDocument  | starSpider.parser.LABELParser      | 面向标签节点进行数据提取操作                      | v1.0               |
+| starSpider.container.HTMLDocument   | starSpider.parser.HTMLParser       | 面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现 | v1.0               |
+| starSpider.container.ExpressionData | starSpider.parser.MEParser         | 面向每一个数学表达式进行数据提取操作                  | v1.0               |
+| starSpider.container.StringData     | starSpider.parser.PatternParser    | 面向每一个符合提取条件的字符串                     | v1.0               |
 
 #### Resolve the type and function of components
 
 | Component name     | Component Type                  | Author URI                        | Format oriented   | Registered to portal | effect                                              | Supported versions |
 |--------------------|---------------------------------|-----------------------------------|-------------------|----------------------|-----------------------------------------------------|--------------------|
-| NULL               | starShards.parser.StarShards    | https://github.com/BeardedManZhao | URL, FILE, String | NO                   | 与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务                | v1.0               |
-| PARSER_NAME_LABEL  | starShards.parser.LABELParser   | https://github.com/BeardedManZhao | 任何使用标签进行数据存储的文本内容 | YES                  | 提取与解析标签数据中的每一个节点                                    | v1.0               |
-| PARSER_NAME_HTML   | starShards.parser.HTMLParser    | https://github.com/BeardedManZhao | HTML XML          | YES                  | 通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象 | v1.0               |
-| PARSER_NAME_REGEXP | starShards.parser.PatternParser | https://github.com/BeardedManZhao | String            | YES                  | 通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据              | v1.0               |
-| PARSER_NAME_ME     | starShards.parser.MEParser      | https://github.com/BeardedManZhao | String            | YES                  | 智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果                    | v1.0               |
-| ...                | ...                             | Dear friends                      | ...               | NO                   | 事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星陨门户        | ...                |
+| NULL               | starSpider.parser.StarSpider    | https://github.com/BeardedManZhao | URL, FILE, String | NO                   | 与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务                | v1.0               |
+| PARSER_NAME_LABEL  | starSpider.parser.LABELParser   | https://github.com/BeardedManZhao | 任何使用标签进行数据存储的文本内容 | YES                  | 提取与解析标签数据中的每一个节点                                    | v1.0               |
+| PARSER_NAME_HTML   | starSpider.parser.HTMLParser    | https://github.com/BeardedManZhao | HTML XML          | YES                  | 通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象 | v1.0               |
+| PARSER_NAME_REGEXP | starSpider.parser.PatternParser | https://github.com/BeardedManZhao | String            | YES                  | 通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据              | v1.0               |
+| PARSER_NAME_ME     | starSpider.parser.MEParser      | https://github.com/BeardedManZhao | String            | YES                  | 智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果                    | v1.0               |
+| ...                | ...                             | Dear friends                      | ...               | NO                   | 事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星蛛门户        | ...                |
 
-## 有哪些功能？
+## What are the functions?
 
 In the StarShards portal, users can directly set parameters and parse objects through the parse function to obtain the
 parsing results. The parsing work in the library is performed by the parser. There are many implementations of the
 parser, and each component registered to Starlite can be accessed through the portal. Next, we will show more
 information.
 
-### 标签文本的解析
+### Analysis of label text
 
 A typical example of label text is HTML. For the task of parsing such text, you can use the label component (
 LABELParser), as shown below
 
 ```java
-package starShards;
+package starSpider;
 
-import starShards.container.LABELDocument;
-import starShards.parser.StarShards;
+import starSpider.container.LABELDocument;
+import starSpider.parser.StarSpider;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,10 +90,10 @@ public final class MAIN {
         // 构建需要爬取页面的URL
         // URL url = new URL("https://xxx.xxx.xxx/xxx"); 可以使用url进行数据的解析
         // 也可使用文件对象，在这里我们对一个文本数据进行爬取
-        File file = new File("D:\\MyGitHub\\StarShards\\src\\main\\resources\\Test.html");
-        // 使用星陨解析组件，对file对象进行LABEL页面的解析（也可以对url进行解析） 按照节点路径 table > tbody
-        // LABELDocument[] parses1 = (LABELDocument[]) StarShards.parse(url, "LABEL", "nodePath", "table", "tbody");
-        LABELDocument[] parses1 = (LABELDocument[]) StarShards.parse(file, "LABEL", "nodePath", "table", "tbody");
+        File file = new File("D:\\MyGitHub\\StarSpider\\src\\main\\resources\\Test.html");
+        // 使用星蛛解析组件，对file对象进行LABEL页面的解析（也可以对url进行解析） 按照节点路径 table > tbody
+        // LABELDocument[] parses1 = (LABELDocument[]) StarSpider.parse(url, "LABEL", "nodePath", "table", "tbody");
+        LABELDocument[] parses1 = (LABELDocument[]) StarSpider.parse(file, "LABEL", "nodePath", "table", "tbody");
         // 迭代每一个被解析到的节点文档对象
         for (LABELDocument labelDocument : parses1) {
             // 获取节点名称
@@ -106,8 +106,8 @@ public final class MAIN {
             System.out.println(labelDocument.getChildrenText());
         }
 
-        // 使用星陨解析组件，对file对象进行LABEL页面的爬取 按照节点[tr]
-        LABELDocument[] parses2 = (LABELDocument[]) StarShards.parse(file, "LABEL", "node", "tr");
+        // 使用星蛛解析组件，对file对象进行LABEL页面的爬取 按照节点[tr]
+        LABELDocument[] parses2 = (LABELDocument[]) StarSpider.parse(file, "LABEL", "node", "tr");
         // 迭代获取到的所有tr标签
         System.out.println("+---------------------------------------------------------------------------------------+");
         for (LABELDocument container : parses2) {
@@ -125,7 +125,7 @@ public final class MAIN {
 }
 ```
 
-### HTML或XML属性的查找
+### Lookup of HTML or XML attributes
 
 In the library, there is a component, HTMLParser, which is dedicated to extracting data such as HTML and XML. It extends
 a new function based on the label component (LABELParser), that is, it searches through attributes. It has all the
@@ -153,26 +153,26 @@ demonstration effect, such a file has been prepared. The file content is shown b
     </thead>
     <tbody>
     <tr class="odd">
-        <td>starShards.container.LABELDocument</td>
-        <td>starShards.parser.LABELParser</td>
+        <td>starSpider.container.LABELDocument</td>
+        <td>starSpider.parser.LABELParser</td>
         <td>面向标签节点进行数据提取操作</td>
         <td>v1.0</td>
     </tr>
     <tr class="even">
-        <td>starShards.container.HTMLDocument</td>
-        <td>starShards.parser.HTMLParser</td>
+        <td>starSpider.container.HTMLDocument</td>
+        <td>starSpider.parser.HTMLParser</td>
         <td>面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现</td>
         <td>v1.0</td>
     </tr>
     <tr class="odd">
-        <td>starShards.container.ExpressionData</td>
-        <td>starShards.parser.MEParser</td>
+        <td>starSpider.container.ExpressionData</td>
+        <td>starSpider.parser.MEParser</td>
         <td>面向每一个数学表达式进行数据提取操作</td>
         <td>v1.0</td>
     </tr>
     <tr class="even">
-        <td>starShards.container.StringData</td>
-        <td>starShards.parser.PatternParser</td>
+        <td>starSpider.container.StringData</td>
+        <td>starSpider.parser.PatternParser</td>
         <td>面向每一个符合提取条件的字符串</td>
         <td>v1.0</td>
     </tr>
@@ -203,7 +203,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
     <tbody>
     <tr class="odd">
         <td>NULL</td>
-        <td>starShards.parser.StarShards</td>
+        <td>starSpider.parser.StarSpiderstarShards.parser.StarSpider</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>URL, FILE, String</td>
         <td>NO</td>
@@ -212,7 +212,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
     </tr>
     <tr class="even">
         <td>PARSER_NAME_LABEL</td>
-        <td>starShards.container.LABELDocument</td>
+        <td>starSpider.container.LABELDocument</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>任何使用标签进行数据存储的文本内容</td>
         <td>YES</td>
@@ -221,7 +221,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
     </tr>
     <tr class="odd">
         <td>PARSER_NAME_HTML</td>
-        <td>starShards.container.HTMLDocument</td>
+        <td>starSpider.container.HTMLDocument</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>HTML XML</td>
         <td>YES</td>
@@ -230,7 +230,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
     </tr>
     <tr class="even">
         <td>PARSER_NAME_REGEXP</td>
-        <td>starShards.parser.PatternParser</td>
+        <td>starSpider.parser.PatternParser</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>String</td>
         <td>YES</td>
@@ -239,7 +239,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
     </tr>
     <tr class="odd">
         <td>PARSER_NAME_ME</td>
-        <td>starShards.parser.MEParser</td>
+        <td>starSpider.parser.MEParser</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>String</td>
         <td>YES</td>
@@ -252,7 +252,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
         <td>Dear friends</td>
         <td>…</td>
         <td>NO</td>
-        <td>事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星陨门户</td>
+        <td>事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星蛛门户</td>
         <td>…</td>
     </tr>
     </tbody>
@@ -264,10 +264,10 @@ Now we want to obtain the node object of the second table. The specific operatio
 that the method of obtaining through attributes is the same as that of LABELParser).
 
 ```java
-package starShards;
+package starSpider;
 
-import starShards.container.HTMLDocument;
-import starShards.parser.StarShards;
+import starSpider.container.HTMLDocument;
+import starSpider.parser.StarSpider;
 
 import java.io.File;
 import java.io.IOException;
@@ -282,9 +282,9 @@ public final class MAIN {
         // 构建需要爬取页面的URL
         // URL url = new URL("https://xxx.xxx.xxx/xxx"); 可以使用url进行数据的解析
         // 也可使用文件对象，在这里我们对一个文本数据进行爬取
-        File file = new File("D:\\MyGitHub\\StarShards\\src\\main\\resources\\Test.html");
-        // 使用星陨库将文件中 id 属性为 table2 的文件数据提取出来
-        HTMLDocument[] parse = (HTMLDocument[]) StarShards.parse(file, "HTML", "attr", "id", "table2");
+        File file = new File("D:\\MyGitHub\\StarSpider\\src\\main\\resources\\Test.html");
+        // 使用星蛛库将文件中 id 属性为 table2 的文件数据提取出来
+        HTMLDocument[] parse = (HTMLDocument[]) StarSpider.parse(file, "HTML", "attr", "id", "table2");
         // 获取到当前节点下的所有tr标签
         for (HTMLDocument htmlDocument : parse[0].getAllChildrenByNodeName("tr")) {
             // 打印tr 标签的数据
@@ -294,30 +294,30 @@ public final class MAIN {
 }
 ```
 
-- 提取结果
+- Extract Results
 
 ```
 组件名称(常量区中的常量名)	组件类型	作者主页	面向格式	已注册至门户	组件作用	组件支持版本	
-NULL	starShards.parser.StarShards	https://github.com/BeardedManZhao	URL, FILE, String	NO	与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务	v1.0	
-PARSER_NAME_LABEL	starShards.container.LABELDocument	https://github.com/BeardedManZhao	任何使用标签进行数据存储的文本内容	YES	提取与解析标签数据中的每一个节点	v1.0	
-PARSER_NAME_HTML	starShards.container.HTMLDocument	https://github.com/BeardedManZhao	HTML XML	YES	通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象	v1.0	
-PARSER_NAME_REGEXP	starShards.parser.PatternParser	https://github.com/BeardedManZhao	String	YES	通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据	v1.0	
-PARSER_NAME_ME	starShards.parser.MEParser	https://github.com/BeardedManZhao	String	YES	智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果	v1.0	
-…	…	Dear friends	…	NO	事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星陨门户	…	
+NULL	starSpider.parser.StarSpider	https://github.com/BeardedManZhao	URL, FILE, String	NO	与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务	v1.0	
+PARSER_NAME_LABEL	starSpider.container.LABELDocument	https://github.com/BeardedManZhao	任何使用标签进行数据存储的文本内容	YES	提取与解析标签数据中的每一个节点	v1.0	
+PARSER_NAME_HTML	starSpider.container.HTMLDocument	https://github.com/BeardedManZhao	HTML XML	YES	通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象	v1.0	
+PARSER_NAME_REGEXP	starSpider.parser.PatternParser	https://github.com/BeardedManZhao	String	YES	通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据	v1.0	
+PARSER_NAME_ME	starSpider.parser.MEParser	https://github.com/BeardedManZhao	String	YES	智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果	v1.0	
+…	…	Dear friends	…	NO	事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星蛛门户	…	
 ```
 
-### 数学表达式的提取
+### Extraction of Mathematical Expressions
 
 For a piece of chaotic and unformatted data containing mathematical expressions, there is a component in the library (
-starShards. parser. MEParser) that can extract all the mathematical expressions and judge whether to calculate the
+starSpider. parser. MEParser) that can extract all the mathematical expressions and judge whether to calculate the
 results according to the parameters passed by the user. Next is the demonstration of the use of this component (directly
 crawl all the mathematical expressions in a page of Baidu Encyclopedia here).
 
 ```java
-package starShards;
+package starSpider;
 
-import starShards.container.ExpressionData;
-import starShards.parser.StarShards;
+import starSpider.container.ExpressionData;
+import starSpider.parser.StarSpider;
 
 import java.io.IOException;
 import java.net.URL;
@@ -331,8 +331,8 @@ public final class MAIN {
     public static void main(String[] args) throws IOException {
         // 构建需要解析的url，这里是百度百科的网站页面
         URL url1 = new URL("https://baike.baidu.com/item/%E8%A1%A8%E8%BE%BE%E5%BC%8F/7655228");
-        // 使用星陨组件，对url对象进行数学表达式的智能提取与计算，这里指定使用的解析组件为ME（表达式解析组件）以及计算模式（brackets）
-        ExpressionData[] parse = (ExpressionData[]) StarShards.parse(url1, "ME", "brackets");
+        // 使用星蛛组件，对url对象进行数学表达式的智能提取与计算，这里指定使用的解析组件为ME（表达式解析组件）以及计算模式（brackets）
+        ExpressionData[] parse = (ExpressionData[]) StarSpider.parse(url1, "ME", "brackets");
         for (ExpressionData expressionData : parse) {
             System.out.println("提取到表达式【" + expressionData.getName() + "】 = " + expressionData.getText());
         }
@@ -340,18 +340,16 @@ public final class MAIN {
 }
 ```
 
-### 正则表达式的匹配
+### Regular expression matching
 
 If you want to use regular expressions to extract data, there is also a component in the library that supports you to do
 this. The next step is to demonstrate the use of this component
 
 ```java
-package starShards;
+package starSpider;
 
-import starShards.container.Container;
-import starShards.parser.StarShards;
-
-import java.io.IOException;
+import starSpider.container.Container;
+import starSpider.parser.StarSpider;
 
 /**
  * 测试用例类
@@ -361,7 +359,7 @@ import java.io.IOException;
 public final class MAIN {
     public static void main(String[] args) {
         // 提取出一个字符串中所有的数值
-        Container[] regulars = StarShards.parse(
+        Container[] regulars = StarSpider.parse(
                 "zhaodsandjsaklfdhajkndfjsdhfaudSUD123HDUSIFCNDJNJDKS678DJSKAF2341233HDSD",
                 "regular", "\\d+"
         );

@@ -1,4 +1,4 @@
-package starShards.container;
+package starSpider.container;
 
 import core.container.CalculationNumberResults;
 

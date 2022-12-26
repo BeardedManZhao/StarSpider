@@ -1,13 +1,13 @@
-package starShards.parser;
+package starSpider.parser;
 
 import core.calculation.number.BracketsCalculation2;
 import core.calculation.number.NumberCalculation;
 import core.calculation.number.PrefixExpressionOperation;
 import core.manager.CalculationManagement;
 import exceptional.WrongFormat;
-import starShards.ConstantRegion;
-import starShards.container.Container;
-import starShards.container.ExpressionData;
+import starSpider.ConstantRegion;
+import starSpider.container.Container;
+import starSpider.container.ExpressionData;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

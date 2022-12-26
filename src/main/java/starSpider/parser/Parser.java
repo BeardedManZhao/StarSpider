@@ -1,6 +1,6 @@
-package starShards.parser;
+package starSpider.parser;
 
-import starShards.container.Container;
+import starSpider.container.Container;
 
 /**
  * 解析器接口对象，所有的解析器由此类拓展

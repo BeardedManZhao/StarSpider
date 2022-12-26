@@ -1,9 +1,9 @@
-package starShards;
+package starSpider;
 
 /**
- * 星陨解析库常量区静态类，其中存储的都是全局经常使用的数据对象。
+ * 星蛛解析库常量区静态类，其中存储的都是全局经常使用的数据对象。
  * <p>
- * The static class in the constant area of the meteorite parsing library stores data objects that are often used globally.
+ * The static classes in the constant area of the spider parsing library store data objects that are often used globally.
  *
  * @author zhao
  */
@@ -27,6 +27,7 @@ public final class ConstantRegion {
     public final static String PARSER_NAME_REGEXP = "regular";
     public final static int Packet_size = 65535;
     public final static String REGEXP_ME_ALL = "[0-9().]+ *[+\\-*/%][+\\-*/%0-9(). ]+[0-9]";
+    public final static String REGEXP_INVISIBLE_CHARACTERS_ALL = "\\s+";
     public final static String REGEXP_LABEL_ATTRIBUTE_SEGMENTATION = "=";
     public final static String REGEXP_COMMA_ALL = new String(new char[]{COMMA_CHAR, '+'});
     public final static String REGEXP_SPACE_ALL = new String(new char[]{SPACE, '+'});

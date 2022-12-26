@@ -1,4 +1,4 @@
-package starShards.container;
+package starSpider.container;
 
 /**
  * 数据容器接口，其中提供了与文档直接进行交互的方式，同时还具备与之相关的信息获取函数。

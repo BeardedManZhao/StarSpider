@@ -9,8 +9,8 @@
 <p>星陨解析库是一款针对数据解析提供的库，其中内置诸多数据解析组件，支持对网络数据包，文件对象，以及字符串对象进行解析，是Java实现的一种数据解析手段，是可以实现爬虫，智能提取等需求的强悍工具。</p>
 <h3 id="架构是什么样的">架构是什么样的？</h3>
 <p>
-    在框架中，用户直接与星陨门户类(starShards.parser.StarShards)进行交互，通过该类，可对URL,FILE,String，三种对象进行内容提取与解析，用户可以根据自己的需求向星陨解析函数中传递形参，实现不同效果。</p>
-<p>星陨门户会根据用户传递的形参，从哈希表中获取到对应的组件进行数据解析，并将组件解析结果对象直接通过星陨门户类(starShards.parser.StarShards)
+    在框架中，用户直接与星陨门户类(starSpider.parser.StarShards)进行交互，通过该类，可对URL,FILE,String，三种对象进行内容提取与解析，用户可以根据自己的需求向星陨解析函数中传递形参，实现不同效果。</p>
+<p>星陨门户会根据用户传递的形参，从哈希表中获取到对应的组件进行数据解析，并将组件解析结果对象直接通过星陨门户类(starSpider.parser.StarShards)
     返回给用户，用户可根据结果中的各类函数进行更多的操作，目前的结果对象有如下几种。</p>
 <h4 id="结果对象的类型与作用">结果对象的类型与作用</h4>
 <table id="table1">
@@ -30,26 +30,26 @@
     </thead>
     <tbody>
     <tr class="odd">
-        <td>starShards.container.LABELDocument</td>
-        <td>starShards.parser.LABELParser</td>
+        <td>starSpider.container.LABELDocument</td>
+        <td>starSpider.parser.LABELParser</td>
         <td>面向标签节点进行数据提取操作</td>
         <td>v1.0</td>
     </tr>
     <tr class="even">
-        <td>starShards.container.HTMLDocument</td>
-        <td>starShards.parser.HTMLParser</td>
+        <td>starSpider.container.HTMLDocument</td>
+        <td>starSpider.parser.HTMLParser</td>
         <td>面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现</td>
         <td>v1.0</td>
     </tr>
     <tr class="odd">
-        <td>starShards.container.ExpressionData</td>
-        <td>starShards.parser.MEParser</td>
+        <td>starSpider.container.ExpressionData</td>
+        <td>starSpider.parser.MEParser</td>
         <td>面向每一个数学表达式进行数据提取操作</td>
         <td>v1.0</td>
     </tr>
     <tr class="even">
-        <td>starShards.container.StringData</td>
-        <td>starShards.parser.PatternParser</td>
+        <td>starSpider.container.StringData</td>
+        <td>starSpider.parser.PatternParser</td>
         <td>面向每一个符合提取条件的字符串</td>
         <td>v1.0</td>
     </tr>
@@ -80,7 +80,7 @@
     <tbody>
     <tr class="odd">
         <td>NULL</td>
-        <td>starShards.parser.StarShards</td>
+        <td>starSpider.parser.StarSpider</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>URL, FILE, String</td>
         <td>NO</td>
@@ -89,7 +89,7 @@
     </tr>
     <tr class="even">
         <td>PARSER_NAME_LABEL</td>
-        <td>starShards.container.LABELDocument</td>
+        <td>starSpider.container.LABELDocument</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>任何使用标签进行数据存储的文本内容</td>
         <td>YES</td>
@@ -98,7 +98,7 @@
     </tr>
     <tr class="odd">
         <td>PARSER_NAME_HTML</td>
-        <td>starShards.container.HTMLDocument</td>
+        <td>starSpider.container.HTMLDocument</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>HTML XML</td>
         <td>YES</td>
@@ -107,7 +107,7 @@
     </tr>
     <tr class="even">
         <td>PARSER_NAME_REGEXP</td>
-        <td>starShards.parser.PatternParser</td>
+        <td>starSpider.parser.PatternParser</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>String</td>
         <td>YES</td>
@@ -116,7 +116,7 @@
     </tr>
     <tr class="odd">
         <td>PARSER_NAME_ME</td>
-        <td>starShards.parser.MEParser</td>
+        <td>starSpider.parser.MEParser</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>String</td>
         <td>YES</td>
