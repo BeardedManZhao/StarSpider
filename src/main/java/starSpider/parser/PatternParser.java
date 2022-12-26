@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  */
 public class PatternParser extends MEParser {
 
-    private final static HashMap<String, Pattern> PATTERN_HASH_MAP = new HashMap<>();
+    protected final static HashMap<String, Pattern> PATTERN_HASH_MAP = new HashMap<>();
 
     /**
      * @return 解析器的名称，用于区别解析器之间的联系
@@ -30,6 +30,21 @@ public class PatternParser extends MEParser {
     @Override
     public String getName() {
         return ConstantRegion.PARSER_NAME_REGEXP;
+    }
+
+    /**
+     * 从缓冲区中获取到正则表达式的编译对象，如果缓冲区中不存在，会新建一个正则对象
+     *
+     * @param colName 正则表达式的字符串形式
+     * @return 正则表达式的编译对象
+     */
+    public Pattern getPattern(String rex) {
+        Pattern compile = PATTERN_HASH_MAP.get(rex);
+        if (compile == null) {
+            compile = Pattern.compile(rex);
+            PATTERN_HASH_MAP.put(rex, compile);
+        }
+        return compile;
     }
 
     /**

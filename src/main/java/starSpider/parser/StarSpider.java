@@ -23,6 +23,7 @@ public final class StarSpider {
     public final static MEParser ME_PARSER = new MEParser();
     public final static HTMLParser HTML_PARSER = new HTMLParser();
     public final static PatternParser PATTERN_PARSER = new PatternParser();
+    public final static FastJsonParser JSON_PARSER = new FastJsonParser();
     public final static float VERSION = 1.0f;
     private final static HashMap<String, Parser> STRING_PARSER_HASH_MAP = new HashMap<>();
 
@@ -32,6 +33,7 @@ public final class StarSpider {
         StarSpider.register(ME_PARSER);
         StarSpider.register(HTML_PARSER);
         StarSpider.register(PATTERN_PARSER);
+        StarSpider.register(JSON_PARSER);
     }
 
     private StarSpider() {

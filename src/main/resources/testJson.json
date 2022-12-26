@@ -1,0 +1,29 @@
+{
+  "VERSION": 1.0,
+  "name": "zhao",
+  "age": 19,
+  "data1": {
+    "key1": "value1年后suiadhs468237&*……&*",
+    "key2": "value2",
+    "key3": "value3",
+    "key4": "value4",
+    "key5": "value5",
+    "key6": "value6"
+  },
+  "two": {
+    "data1": {
+      "key1": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "key2": "value2",
+      "key3": "value3",
+      "key4": "value4",
+      "key5": "value5",
+      "key6": "value6"
+    }
+  }
+}

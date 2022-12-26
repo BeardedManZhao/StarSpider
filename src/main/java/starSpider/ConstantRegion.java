@@ -20,11 +20,13 @@ public final class ConstantRegion {
     public final static char REGEXP_OR = '|';
     public final static char REGEXP_GREEDY_SYMBOL = '?';
     public final static char SPACE = ' ';
+    public final static String CONF_FILE_NAME = "testJson.json";
     public final static String STRING_NULL = "null";
     public final static String PARSER_NAME_LABEL = "LABEL";
     public final static String PARSER_NAME_ME = "ME";
     public final static String PARSER_NAME_HTML = "HTML";
     public final static String PARSER_NAME_REGEXP = "regular";
+    public final static String PARSER_NAME_FASTJSON = "fastJson";
     public final static int Packet_size = 65535;
     public final static String REGEXP_ME_ALL = "[0-9().]+ *[+\\-*/%][+\\-*/%0-9(). ]+[0-9]";
     public final static String REGEXP_INVISIBLE_CHARACTERS_ALL = "\\s+";
