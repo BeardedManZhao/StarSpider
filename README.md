@@ -2,7 +2,7 @@
 
 ## introduce
 
-StarShards Parsing Library is a library provided for data parsing, which has many built-in data parsing components. It
+StarSpider Parsing Library is a library provided for data parsing, which has many built-in data parsing components. It
 supports the parsing of network data packets, file objects, and string objects. It is a data parsing method implemented
 by Java, and a powerful tool that can meet the needs of crawlers, intelligent extraction, and so on.
 
@@ -28,13 +28,13 @@ by Java, and a powerful tool that can meet the needs of crawlers, intelligent ex
 
 ### What is the architecture like?
 
-In the framework, users can directly interact with starshards portal class (starSpider. parser. StarShards). Through
+In the framework, users can directly interact with StarSpider portal class (starSpider. parser. StarSpider). Through
 this class, you can extract and parse the contents of URL, FILE, String, and three objects. Users can transfer formal
-parameters to starshards analytic functions according to their needs to achieve different effects.
+parameters to StarSpider analytic functions according to their needs to achieve different effects.
 
-StarShards portal will obtain the corresponding components from the hash table according to the formal parameters passed
-by the user for data analysis, and directly pass the component analysis result object through the StarShards portal
-class (starSpider. parser. StarShards)
+StarSpider portal will obtain the corresponding components from the hash table according to the formal parameters passed
+by the user for data analysis, and directly pass the component analysis result object through the StarSpider portal
+class (starSpider. parser. StarSpider)
 
 It is returned to the user. The user can perform more operations according to various functions in the result. The
 current result objects are as follows.
@@ -61,9 +61,9 @@ current result objects are as follows.
 
 ## What are the functions?
 
-In the StarShards portal, users can directly set parameters and parse objects through the parse function to obtain the
+In the StarSpider portal, users can directly set parameters and parse objects through the parse function to obtain the
 parsing results. The parsing work in the library is performed by the parser. There are many implementations of the
-parser, and each component registered to Starlite can be accessed through the portal. Next, we will show more
+parser, and each component registered to StarSpider can be accessed through the portal. Next, we will show more
 information.
 
 ### Analysis of label text
@@ -203,7 +203,7 @@ demonstration effect, such a file has been prepared. The file content is shown b
     <tbody>
     <tr class="odd">
         <td>NULL</td>
-        <td>starSpider.parser.StarSpiderstarShards.parser.StarSpider</td>
+        <td>starSpider.parser.StarSpider</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>URL, FILE, String</td>
         <td>NO</td>
@@ -381,8 +381,9 @@ public final class MAIN {
 ## More information
 
 Thank you for your use. The parsing components in the library will flow and continue to be optimized at any time. If you
-want to register the components you have implemented with Starlite, please send the source code and some information to
-your mailbox Liming7887@qq.com In fact, we are looking forward to adding your implementation to the portal.
+want to register the components you have implemented with StarSpider, please send the source code and some information
+to your mailbox Liming7887@qq.com In fact, we are looking forward to adding your implementation to the portal.
 <hr>
 
 - date: 2022-12-24
+- Switch to [中文文档](https://github.com/BeardedManZhao/StarSpider/blob/main/README-Chinese.md)

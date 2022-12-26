@@ -187,7 +187,7 @@ XML这两类文本的爬取进行了优化，使得该组件针对HTML与XML的�
     <tbody>
     <tr class="odd">
         <td>NULL</td>
-        <td>starSpider.parser.StarSpiderstarShards.parser.StarSpider</td>
+        <td>starSpider.parser.StarSpider</td>
         <td>https://github.com/BeardedManZhao</td>
         <td>URL, FILE, String</td>
         <td>NO</td>
@@ -362,3 +362,4 @@ public final class MAIN {
 <hr>
 
 - date: 2022-12-24
+- 切换至 [English document](https://github.com/BeardedManZhao/StarSpider/blob/main/README.md)
