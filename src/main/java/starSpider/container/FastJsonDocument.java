@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * Json文档对象，由json解析器返回的json对象
+ * Json文档对象，由json解析器返回的json对象，拓展于JSONObject，完全遵循JSONObject的函数获取方式，本类中内部封装了一个JSONObject对象，并拓展出一些新函数，对于FastJson的使用者来说，该类对您来说是非常熟悉的。
+ * <p>
+ * Json document object, the json object returned by the json parser, extends to JSONObject and completely follows the function acquisition method of JSONObject. This class encapsulates a JSONObject object internally and expands some new functions. For FastJson users, this class is very familiar to you.
  *
  * @author zhao
  */
@@ -49,6 +51,16 @@ public class FastJsonDocument extends JSONObject implements Container {
     }
 
     /**
+     * 从当前节点开始，获取到子节点的FastJsonDocument对象
+     *
+     * @param key 当前节点下的子节点
+     * @return 子节点的FastJsonDocument
+     */
+    public FastJsonDocument getFastJsonDocument(String key) {
+        return new FastJsonDocument(this.getJSONObject(key), key);
+    }
+
+    /**
      * @return 获取到节点的字符串数据，在HTML中的实现为获取到当前节点的文本数据
      * <p>
      * Get the string data to the node
@@ -66,6 +78,51 @@ public class FastJsonDocument extends JSONObject implements Container {
     @Override
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * @return 获取当前节点数据的 int 类型的数据
+     * <p>
+     * Get the int type data of the current node data
+     */
+    public int getIntValue() {
+        return Integer.parseInt(this.text);
+    }
+
+    /**
+     * @return 获取当前节点数据的 Boolean 类型的数据
+     * <p>
+     * Get the Boolean type data of the current node data
+     */
+    public boolean getBooleanValue() {
+        return Boolean.parseBoolean(this.text);
+    }
+
+    /**
+     * @return 获取当前节点数据的 Double 类型的数据
+     * <p>
+     * Get the Double type data of the current node data
+     */
+    public double getDoubleValue() {
+        return Double.parseDouble(this.text);
+    }
+
+    /**
+     * @return 获取当前节点数据的 Float 类型的数据
+     * <p>
+     * Get the Float type data of the current node data
+     */
+    public float getFloatValue() {
+        return Float.parseFloat(this.text);
+    }
+
+    /**
+     * @return 获取当前节点数据的 JsonObject 类型的数据
+     * <p>
+     * Get the JsonObject type data of the current node data
+     */
+    public JSONObject getJsonObject() {
+        return this.jsonObject;
     }
 
     @Override

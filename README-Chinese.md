@@ -323,7 +323,7 @@ public final class MAIN {
 
 ### 正则表达式的匹配
 
-用户如果想要使用正则表达式提取数据，库中也有一个组件支持用户进行这样的操作，接下来就是该组件的使用演示
+用户如果想要使用正则表达式提取数据，库中也有一个组件支持用户进行这样的操作，接下来就是该组件的使用演示。
 
 ```java
 package starSpider;
@@ -360,9 +360,54 @@ public final class MAIN {
 
 ### Json字符串的解析
 
+在门户中，同样存在着Json解析器被注册，它非常适用于Json文件的解析，在本框架中，将[fastJson](https://github.com/alibaba/fastjson)
+作为FastJsonDocument的底层实现，FastJsonDocument遵循fastJson的JSONObject类的操作方式，使得具有FastJson经验的用户在使用FastJsonDocument的时候能够快速上手，接下来就是有关FastJsonDocument的一些操作示例。
+
+```java
+package starSpider;
+
+import starSpider.container.FastJsonDocument;
+import starSpider.parser.StarSpider;
+
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * 测试用例类
+ *
+ * @author zhao
+ */
+public final class MAIN {
+    public static void main(String[] args) throws IOException {
+        File file = new File("D:\\MyGitHub\\StarSpider\\src\\main\\resources\\testJson.json");
+        // 获取到json 文件中的data1与two，并以json格式解析它
+        // 返回解析到的结果，这里是data1的结果对象与two组成的数组
+        FastJsonDocument[] parse = (FastJsonDocument[]) StarSpider.parse(file, "fastJson", "json", "data1", "two");
+        for (FastJsonDocument container : parse) {
+            // 在这里就是针对每一个FastJsonDocument的获取数据操作，其中的函数风格符合JSONObject，减少学习成本
+            if (container.isJObject) {
+                // 如果当前节点返回的是一个jsonObject，就可以使用JSONObject风格的函数
+                System.out.println(container.getName() + '\t' + container.getText() + '\t' + container.getString("key1"));
+            } else {
+                // 如果当前节点返回的不是一个jsonObject，那么就不可以进行JSONObject的函数调用
+                // 但基础函数还是可以调用的，例如获取节点名称和节点数据等操作
+                System.out.println(container.getName() + '\t' + container.getText());
+            }
+        }
+    }
+}
+```
+
+- 打印结果
+
+```
+data1	{"key1":"value1年后suiadhs468237&*……&*","key2":"value2","key3":"value3","key4":"value4","key5":"value5","key6":"value6"}	value1年后suiadhs468237&*……&*
+two     {"data1":{"key1":[1,2,3,4,5],"key2":"value2","key3":"value3","key4":"value4","key5":"value5","key6":"value6"}}	                null
+```
+
 ## 更多信息
 
-感谢各位的使用，库中的解析组件将会随时时间的流动而不断优化，如果各位想要将自己实现的组件注册到星蛛中，请将源码以及一些信息发送到邮箱Liming7887@qq.com中，事实上我们很期待将您的实现加入到门户中。
+感谢各位的使用，库中的解析组件将会随时时间的流动而不断优化，如果各位想要将自己实现的组件注册到星蛛中，请将与您项目有关的一些信息发送到邮箱Liming7887@qq.com中，事实上我们很期待将您的实现加入到门户中。
 <hr>
 
 - date: 2022-12-24

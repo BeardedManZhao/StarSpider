@@ -15,7 +15,7 @@ public final class MAIN {
     public static void main(String[] args) throws IOException {
         File file = new File("D:\\MyGitHub\\StarSpider\\src\\main\\resources\\testJson.json");
         // 获取到json 文件中的data1与two，并以json格式解析它
-        FastJsonDocument[] parse = (FastJsonDocument[]) StarSpider.parse(file, "json", "node", "data1", "two");
+        FastJsonDocument[] parse = (FastJsonDocument[]) StarSpider.parse(file, "fastJson", "json", "data1", "two");
         // 返回解析到的结果，这里是data1的结果对象与two组成的数组
         for (FastJsonDocument container : parse) {
             if (container.isJObject) {

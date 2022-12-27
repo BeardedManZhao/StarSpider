@@ -380,11 +380,60 @@ public final class MAIN {
 2341233
 ```
 
+### Parsing Json String
+
+In the portal, there are also Json parsers registered, which are very suitable for parsing Json files. In this
+framework, [fastJson](https://github.com/alibaba/fastjson) As the underlying implementation of FastJsonDocument,
+FastJsonDocument follows the operation mode of FastJson's JSONObject class, enabling users with FastJson experience to
+quickly start using FastJsonDocument. Next are some operation examples about FastJsonDocument.
+
+```java
+package starSpider;
+
+import starSpider.container.FastJsonDocument;
+import starSpider.parser.StarSpider;
+
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * 测试用例类
+ *
+ * @author zhao
+ */
+public final class MAIN {
+    public static void main(String[] args) throws IOException {
+        File file = new File("D:\\MyGitHub\\StarSpider\\src\\main\\resources\\testJson.json");
+        // Get data1 and two in the json file, and parse them in the json format
+        // Returns the parsed result. Here is an array composed of the result object of data1 and two
+        FastJsonDocument[] parse = (FastJsonDocument[]) StarSpider.parse(file, "fastJson", "json", "data1", "two");
+        for (FastJsonDocument container : parse) {
+            // Here is the data acquisition operation for each FastJsonDocument. The function style conforms to JSONObject, reducing the learning cost
+            if (container.isJObject) {
+                // If the current node returns a jsonObject, you can use JSONObject style functions
+                System.out.println(container.getName() + '\t' + container.getText() + '\t' + container.getString("key1"));
+            } else {
+                // 如果当前节点返回的不是一个jsonObject，那么就不可以进行JSONObject的函数调用，因为有些函数会返回null等不尽人意的结果
+                // 但基础函数还是可以调用的，例如获取节点名称和节点数据等操作
+                System.out.println(container.getName() + '\t' + container.getText());
+            }
+        }
+    }
+}
+```
+
+- print results
+
+```
+data1	{"key1":"value1年后suiadhs468237&*……&*","key2":"value2","key3":"value3","key4":"value4","key5":"value5","key6":"value6"}	value1年后suiadhs468237&*……&*
+two     {"data1":{"key1":[1,2,3,4,5],"key2":"value2","key3":"value3","key4":"value4","key5":"value5","key6":"value6"}}	                null
+```
+
 ## More information
 
 Thank you for your use. The parsing components in the library will flow and continue to be optimized at any time. If you
-want to register the components you have implemented with StarSpider, please send the source code and some information
-to your mailbox Liming7887@qq.com In fact, we are looking forward to adding your implementation to the portal.
+want to register your own components in Starscream, please send some information about your project to your email
+Liming7887@qq.com In fact, we are looking forward to adding your implementation to the portal.
 <hr>
 
 - date: 2022-12-24
