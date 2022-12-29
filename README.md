@@ -12,15 +12,27 @@ by Java, and a powerful tool that can meet the needs of crawlers, intelligent ex
 
 [//]: # (#### maven配置)
 
+[//]: # ()
+
 [//]: # (```xml)
 
-[//]: # ()
+[//]: # (        <dependency>)
+
+[//]: # (            <groupId>io.github.BeardedManZhao</groupId>)
+
+[//]: # (            <artifactId>mathematical-expression</artifactId>)
+
+[//]: # (            <version>1.2.1</version>)
+
+[//]: # (        </dependency>)
 
 [//]: # (```)
 
 [//]: # (#### gradle配置)
 
-[//]: # (```xml)
+[//]: # ()
+
+[//]: # (```)
 
 [//]: # ()
 
