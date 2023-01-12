@@ -1,6 +1,5 @@
 package starSpider.parser;
 
-import com.sun.istack.internal.NotNull;
 import starSpider.ConstantRegion;
 import starSpider.container.Container;
 import starSpider.container.HTMLDocument;
@@ -112,7 +111,6 @@ public class HTMLParser extends LABELParser {
      * @param matcher  节点匹配的正则对象
      * @return 一个符合条件的文档对象
      */
-    @NotNull
     private HTMLDocument getHtmlDocument(String nodeName, Matcher matcher) {
         // 获取到当前节点的标签文本
         String group = matcher.group();

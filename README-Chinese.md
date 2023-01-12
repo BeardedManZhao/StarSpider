@@ -39,25 +39,27 @@
 
 #### 结果对象的类型与作用
 
-| 结果对象数据类型                              | 该结果类型对应的提取组件                     | 该结果类型的特有功能                          | 该结果类型的支持版本 |
-|---------------------------------------|----------------------------------|-------------------------------------|------------|
-| starSpider.container.LABELDocument    | starSpider.parser.LABELParser    | 面向标签节点进行数据提取操作                      | v1.0       |
-| starSpider.container.HTMLDocument     | starSpider.parser.HTMLParser     | 面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现 | v1.0       |
-| starSpider.container.ExpressionData   | starSpider.parser.MEParser       | 面向每一个数学表达式进行数据提取操作                  | v1.0       |
-| starSpider.container.StringData       | starSpider.parser.PatternParser  | 面向每一个符合提取条件的字符串                     | v1.0       |
-| starSpider.container.FastJsonDocument | starSpider.parser.FastJsonParser | 面向json字符串中每一个json节点进行提取操作。          | v1.0       |
+| 结果对象数据类型                              | 该结果类型对应的提取组件                      | 该结果类型的特有功能                          | 该结果类型的支持版本 |
+|---------------------------------------|-----------------------------------|-------------------------------------|------------|
+| starSpider.container.LABELDocument    | starSpider.parser.LABELParser     | 面向标签节点进行数据提取操作                      | v1.0       |
+| starSpider.container.HTMLDocument     | starSpider.parser.HTMLParser      | 面向标签节点与节点属性进行数据提取操作,是LABEL结果对象的子类实现 | v1.0       |
+| starSpider.container.ExpressionData   | starSpider.parser.MEParser        | 面向每一个数学表达式进行数据提取操作                  | v1.0       |
+| starSpider.container.StringData       | starSpider.parser.PatternParser   | 面向每一个符合提取条件的字符串                     | v1.0       |
+| starSpider.container.SQLStringData    | starSpider.parser.SQLStringParser | 面向每一个SQL语句进行语义解析操作                  | v1.0       |
+| starSpider.container.FastJsonDocument | starSpider.parser.FastJsonParser  | 面向json字符串中每一个json节点进行提取操作。          | v1.0       |
 
 #### 解析组件的类型与作用
 
-| 组件名称(常量区中的常量名)       | 组件类型                             | 作者主页                              | 面向格式              |     | 已注册至门户 | 组件作用                                                | 组件支持版本 |
-|----------------------|----------------------------------|-----------------------------------|-------------------|:----|--------|-----------------------------------------------------|--------|
-| NULL                 | starSpider.parser.StarSpider     | https://github.com/BeardedManZhao | URL, FILE, String |     | NO     | 与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务                | v1.0   |
-| PARSER_NAME_LABEL    | starSpider.parser.LABELParser    | https://github.com/BeardedManZhao | 任何使用标签进行数据存储的文本内容 |     | YES    | 提取与解析标签数据中的每一个节点                                    | v1.0   |
-| PARSER_NAME_HTML     | starSpider.parser.HTMLParser     | https://github.com/BeardedManZhao | HTML XML          |     | YES    | 通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象 | v1.0   |
-| PARSER_NAME_REGEXP   | starSpider.parser.PatternParser  | https://github.com/BeardedManZhao | String            |     | YES    | 通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据              | v1.0   |
-| PARSER_NAME_ME       | starSpider.parser.MEParser       | https://github.com/BeardedManZhao | String            |     | YES    | 智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果                    | v1.0   |
-| PARSER_NAME_FASTJSON | starSpider.parser.FastJsonParser | https://github.com/alibaba        | Json              |     | YES    | 针对JSON进行解析的库，将FastJson接入到门户，它返回的结果就是一个JSONObject对象  | v1.0   |
-| ...                  | ...                              | Dear friends                      | ...               |     | NO     | 事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星蛛门户        | ...    |
+| 组件名称(常量区中的常量名)              | 组件类型                              | 作者主页                                            | 面向格式              | 已注册至门户 | 组件作用                                                | 组件支持版本 |
+|-----------------------------|-----------------------------------|-------------------------------------------------|-------------------|--------|-----------------------------------------------------|--------|
+| NULL                        | starSpider.parser.StarSpider      | https://github.com/BeardedManZhao               | URL, FILE, String | NO     | 与用户进行直接交互，根据用户的需求调整框架内部的结构并提交解析数据的任务                | v1.0   |
+| PARSER_NAME_LABEL           | starSpider.parser.LABELParser     | https://github.com/BeardedManZhao               | 使用标签格式的字符串        | YES    | 提取与解析标签数据中的每一个节点                                    | v1.0   |
+| PARSER_NAME_HTML            | starSpider.parser.HTMLParser      | https://github.com/BeardedManZhao               | HTML XML          | YES    | 通过节点名称或节点属性，提取与解析HTML与XML中的每一个节点，并返回具有相对节点解析功能的结果对象 | v1.0   |
+| PARSER_NAME_REGEXP          | starSpider.parser.PatternParser   | https://github.com/BeardedManZhao               | String            | YES    | 通过用户提供的正则表达式解析任意文本中的内容，提取出符合正则表达式的所有数据              | v1.0   |
+| PARSER_NAME_ME              | starSpider.parser.MEParser        | https://github.com/BeardedManZhao               | String            | YES    | 智能提取出所有数学表达式，并通过ME框架进行表达式计算，返回结果                    | v1.0   |
+| PARSER_NAME_SQL_STRING_INFO | starSpider.parser.SQLStringParser | https://github.com/BeardedManZhao/SQLStringInFo | SQLString         | YES    | 智能提取出所有的SQL语句，并通过SQLStringINFO解析库对语句进行解析，然后返回结果     | v1.0   |
+| PARSER_NAME_FASTJSON        | starSpider.parser.FastJsonParser  | https://github.com/alibaba                      | Json              | YES    | 针对JSON进行解析的库，将FastJson接入到门户，它返回的结果就是一个JSONObject对象  | v1.0   |
+| ...                         | ...                               | Dear friends                                    | ...               | NO     | 事实上，我们希望有更多人可以将自己的实现提供给我们，由各位亲自将自己的组件接入至星蛛门户        | ...    |
 
 ## 有哪些功能？
 

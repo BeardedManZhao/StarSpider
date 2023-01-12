@@ -35,16 +35,27 @@ public class PatternParser extends MEParser {
     /**
      * 从缓冲区中获取到正则表达式的编译对象，如果缓冲区中不存在，会新建一个正则对象
      *
-     * @param colName 正则表达式的字符串形式
+     * @param rex   正则表达式的字符串形式
+     * @param flags 正则表达式形参，该函数支持设置正则的附加参数
      * @return 正则表达式的编译对象
      */
-    public Pattern getPattern(String rex) {
+    public Pattern getPattern(String rex, int flags) {
         Pattern compile = PATTERN_HASH_MAP.get(rex);
         if (compile == null) {
             compile = Pattern.compile(rex);
             PATTERN_HASH_MAP.put(rex, compile);
         }
         return compile;
+    }
+
+    /**
+     * 从缓冲区中获取到正则表达式的编译对象，如果缓冲区中不存在，会新建一个正则对象
+     *
+     * @param rex 正则表达式默认形参的字符串形式
+     * @return 正则表达式的编译对象
+     */
+    public Pattern getPattern(String rex) {
+        return getPattern(rex, 0);
     }
 
     /**

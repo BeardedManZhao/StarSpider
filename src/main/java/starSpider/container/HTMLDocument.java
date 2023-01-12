@@ -22,9 +22,10 @@ public class HTMLDocument extends LABELDocument {
     /**
      * 构造一个文档对象
      *
-     * @param text    当前LABEL节点的数据
-     * @param attribs 当前LABEL节点的属性
-     * @param name    当前LABEL的标签名称
+     * @param text     当前LABEL节点的数据
+     * @param attribs  当前LABEL节点的属性
+     * @param name     当前LABEL的标签名称
+     * @param HTMLData 该对象中，原本HTML或XML文档的对象。
      */
     public HTMLDocument(String[] text, HashMap<String, String> attribs, String name, String HTMLData) {
         super(text, text.length == 0 ? ConstantRegion.STRING_NULL : text[0], attribs, name);

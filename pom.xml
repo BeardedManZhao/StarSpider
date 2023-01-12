@@ -7,6 +7,7 @@
     <groupId>io.github.BeardedManZhao</groupId>
     <artifactId>StarSpider</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
     <name>StarSpider</name>
     <description>StarSpider-java</description>
     <url>https://github.com/BeardedManZhao/StarSpider</url>
@@ -21,6 +22,11 @@
             <groupId>io.github.BeardedManZhao</groupId>
             <artifactId>mathematical-expression</artifactId>
             <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.BeardedManZhao</groupId>
+            <artifactId>SQLStringInFo</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
