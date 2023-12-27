@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.BeardedManZhao</groupId>
@@ -21,17 +20,20 @@
         <dependency>
             <groupId>io.github.BeardedManZhao</groupId>
             <artifactId>mathematical-expression</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.4</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.github.BeardedManZhao</groupId>
             <artifactId>SQLStringInFo</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>2.0.21</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

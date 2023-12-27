@@ -1,11 +1,7 @@
 package starSpider;
 
-import starSpider.container.FastJsonDocument;
 import starSpider.container.SQLStringData;
 import starSpider.parser.StarSpider;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * 测试用例类
@@ -13,7 +9,9 @@ import java.io.IOException;
  * @author zhao
  */
 public final class MAIN {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        System.out.println("版本：" + StarSpider.VERSION);
+        // 准备一个需要被解析的 sql 脚本
         String data = "alter table zhao1 add test varchar(20);\n" +
                 "alter table zhao1 drop test;\n" +
                 "# 重命名列字段\n" +
@@ -33,21 +31,12 @@ public final class MAIN {
                 "hasiod;\n" +
                 "\n" +
                 "select * from zhao;";
+        // 使用 PARSER_NAME_SQL_STRING_INFO 解析出 alter 的语句
         SQLStringData[] alters = (SQLStringData[]) StarSpider.parse(data, ConstantRegion.PARSER_NAME_SQL_STRING_INFO, "alter");
         for (SQLStringData alter : alters) {
+            // alter 就是解析出来的语句对象包装类
+            // 在这里我们简单的将所有 alter 的语句打印了出来
             System.out.println(alter.getStatement().getSqlStr());
-        }
-
-        File file = new File("D:\\MyGitHub\\StarSpider\\src\\main\\resources\\testJson.json");
-        // 获取到json 文件中的data1与two，并以json格式解析它
-        FastJsonDocument[] parse = (FastJsonDocument[]) StarSpider.parse(file, "fastJson", "json", "data1", "two");
-        // 返回解析到的结果，这里是data1的结果对象与two组成的数组
-        for (FastJsonDocument container : parse) {
-            if (container.isJObject) {
-                System.out.println(container.getName() + '\t' + container.getText() + '\t' + container.getString("key1"));
-            } else {
-                System.out.println(container.getName() + '\t' + container.getText());
-            }
         }
     }
 }

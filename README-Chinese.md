@@ -4,31 +4,43 @@
 
 星蛛解析库是一款针对数据解析提供的库，其中内置诸多数据解析组件，支持对网络数据包，文件对象，以及字符串对象进行解析，是Java实现的一种数据解析手段，是可以实现爬虫，智能提取等需求的强悍工具。
 
-[//]: # (### 如何获取？)
+### 如何获取？
 
-[//]: # ()
+目前该组件已支持maven与gradle两种方式获取。
 
-[//]: # (目前该组件已支持maven与gradle两种方式获取。)
+#### maven配置
 
-[//]: # ()
+```xml
 
-[//]: # (#### maven配置)
+<dependencies>
+    <dependency>
+        <groupId>io.github.BeardedManZhao</groupId>
+        <artifactId>StarSpider</artifactId>
+        <version>1.0</version>
+    </dependency>
 
-[//]: # ()
+    <!-- 依赖导入 您可以自己选择版本！！！ -->
 
-[//]: # (```xml)
-
-[//]: # ()
-
-[//]: # (```)
-
-[//]: # (#### gradle配置)
-
-[//]: # (```xml)
-
-[//]: # ()
-
-[//]: # (```)
+    <dependency>
+        <groupId>io.github.BeardedManZhao</groupId>
+        <artifactId>mathematical-expression</artifactId>
+        <version>1.2.4</version>
+        <!-- 至少要 1.2.1 版本 -->
+    </dependency>
+    <dependency>
+        <groupId>io.github.BeardedManZhao</groupId>
+        <artifactId>SQLStringInFo</artifactId>
+        <version>1.1</version>
+        <!-- 支持所有版本 -->
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>2.0.21</version>
+        <!-- 至少要 2.0.21 版本 -->
+    </dependency>
+</dependencies>
+```
 
 ### 架构是什么样的？
 
@@ -413,10 +425,58 @@ data1	{"key1":"value1年后suiadhs468237&*……&*","key2":"value2","key3":"valu
 two     {"data1":{"key1":[1,2,3,4,5],"key2":"value2","key3":"value3","key4":"value4","key5":"value5","key6":"value6"}}	                null
 ```
 
+### sql 语句的解析
+
+```java
+package starSpider;
+
+import starSpider.container.SQLStringData;
+import starSpider.parser.StarSpider;
+
+/**
+ * 测试用例类
+ *
+ * @author zhao
+ */
+public final class MAIN {
+    public static void main(String[] args) {
+        System.out.println("版本：" + StarSpider.VERSION);
+        // 准备一个需要被解析的 sql 脚本
+        String data = "alter table zhao1 add test varchar(20);\n" +
+                "alter table zhao1 drop test;\n" +
+                "# 重命名列字段\n" +
+                "alter table zhao1 change age age1 int;\n" +
+                "# 重命名表名称\n" +
+                "alter table zhao1 rename zhao;\n" +
+                "# 加索引\n" +
+                "alter table zhao add index indexName (name, age1);\n" +
+                "# 加主键索引\n" +
+                "alter table zhao add primary key (name);\n" +
+                "# 加唯一索引\n" +
+                "alter table zhao add unique (name);\n" +
+                "\n" +
+                "create table zhao2 \n" +
+                "as \n" +
+                "select * from student join achievement join (select * from zhao) join zhao1231;\n" +
+                "hasiod;\n" +
+                "\n" +
+                "select * from zhao;";
+        // 使用 PARSER_NAME_SQL_STRING_INFO 解析出 alter 的语句
+        SQLStringData[] alters = (SQLStringData[]) StarSpider.parse(data, ConstantRegion.PARSER_NAME_SQL_STRING_INFO, "alter");
+        for (SQLStringData alter : alters) {
+            // alter 就是解析出来的语句对象包装类
+            // 在这里我们简单的将所有 alter 的语句打印了出来
+            System.out.println(alter.getStatement().getSqlStr());
+        }
+    }
+}
+
+```
+
 ## 更多信息
 
 感谢各位的使用，库中的解析组件将会随时时间的流动而不断优化，如果各位想要将自己实现的组件注册到星蛛中，请将与您项目有关的一些信息发送到邮箱Liming7887@qq.com中，事实上我们很期待将您的实现加入到门户中。
 <hr>
 
-- date: 2022-12-24
+- date: 2023-12-27
 - 切换至 [English document](https://github.com/BeardedManZhao/StarSpider/blob/main/README.md)

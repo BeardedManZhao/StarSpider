@@ -49,7 +49,7 @@ public class SQLStringData implements Container {
      * <p>
      * The parsing mode used for parsing SQL statements is different in different modes. Please refer to the introduction document for details.
      *
-     * <a href="https://github.com/BeardedManZhao/SQLStringInFo/blob/core/README.md">Click to go to the document<a/>
+     * 链接：href="https://github.com/BeardedManZhao/SQLStringInFo/blob/core/README.md
      */
     public String getMod() {
         return mod;
