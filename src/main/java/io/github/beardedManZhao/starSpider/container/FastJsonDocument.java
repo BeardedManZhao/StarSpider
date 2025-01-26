@@ -1,10 +1,10 @@
-package starSpider.container;
+package io.github.beardedManZhao.starSpider.container;
 
 import com.alibaba.fastjson2.*;
 import com.alibaba.fastjson2.filter.NameFilter;
 import com.alibaba.fastjson2.filter.ValueFilter;
 import com.alibaba.fastjson2.schema.JSONSchema;
-import starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -22,6 +22,7 @@ import java.util.function.Function;
  *
  * @author zhao
  */
+@SuppressWarnings("unused")
 public class FastJsonDocument extends JSONObject implements Container {
 
     public final JSONObject jsonObject;
@@ -453,20 +454,6 @@ public class FastJsonDocument extends JSONObject implements Container {
     public <T> T toJavaObject(Class<T> clazz, JSONReader.Feature... features) {
         if (isJObject) {
             return this.jsonObject.toJavaObject(clazz, features);
-        } else return null;
-    }
-
-    @Override
-    public <T> T toJavaObject(Type type, JSONReader.Feature... features) {
-        if (isJObject) {
-            return this.jsonObject.toJavaObject(type, features);
-        } else return null;
-    }
-
-    @Override
-    public <T> T toJavaObject(TypeReference<?> typeReference, JSONReader.Feature... features) {
-        if (isJObject) {
-            return this.jsonObject.toJavaObject(typeReference, features);
         } else return null;
     }
 

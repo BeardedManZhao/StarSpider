@@ -1,8 +1,8 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
-import starSpider.container.SQLStringData;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.SQLStringData;
 import strInfo.parser.AlterParser;
 import strInfo.parser.CreateParser;
 import strInfo.parser.InsertParser;

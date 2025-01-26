@@ -1,9 +1,9 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
 import com.alibaba.fastjson2.JSONObject;
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
-import starSpider.container.FastJsonDocument;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.FastJsonDocument;
 
 /**
  * @author zhao

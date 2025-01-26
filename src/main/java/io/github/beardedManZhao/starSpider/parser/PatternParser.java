@@ -1,8 +1,8 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
-import starSpider.container.StringData;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.StringData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public class PatternParser extends MEParser {
     public Pattern getPattern(String rex, int flags) {
         Pattern compile = PATTERN_HASH_MAP.get(rex);
         if (compile == null) {
-            compile = Pattern.compile(rex);
+            compile = Pattern.compile(rex, flags);
             PATTERN_HASH_MAP.put(rex, compile);
         }
         return compile;

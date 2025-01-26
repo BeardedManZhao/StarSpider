@@ -1,7 +1,7 @@
-package starSpider.container;
+package io.github.beardedManZhao.starSpider.container;
 
-import starSpider.ConstantRegion;
-import starSpider.parser.StarSpider;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.parser.StarSpider;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -18,6 +18,8 @@ public class HTMLDocument extends LABELDocument {
     public final static Pattern REGEXP_INVISIBLE_CHARACTERS_ALL_PATTERN = Pattern.compile(ConstantRegion.REGEXP_INVISIBLE_CHARACTERS_ALL);
     public final String childrenNodeName;
     public final String HTMLData;
+
+    private HTMLDocument[] getAllChildrenByNodeName, getAllChildrenByNodeAttrib;
 
     /**
      * 构造一个文档对象
@@ -54,7 +56,12 @@ public class HTMLDocument extends LABELDocument {
      * @return 当前节点与当前所有子节点中的某一个指定节点数据
      */
     public HTMLDocument[] getAllChildrenByNodeName(String childrenNodeName) {
-        return (HTMLDocument[]) StarSpider.HTML_PARSER.getDocumentByNodeName(this.HTMLData, false, ConstantRegion.PARSER_NAME_HTML, childrenNodeName);
+        // 缓存
+        if (this.getAllChildrenByNodeName != null) {
+            return this.getAllChildrenByNodeName;
+        }
+        this.getAllChildrenByNodeName = (HTMLDocument[]) StarSpider.HTML_PARSER.getDocumentByNodeName(this.HTMLData, false, ConstantRegion.PARSER_NAME_HTML, childrenNodeName);
+        return this.getAllChildrenByNodeName;
     }
 
     /**
@@ -65,7 +72,11 @@ public class HTMLDocument extends LABELDocument {
      * @return 当前节点与当前所有子节点中的所有符合属性条件的节点文档对象
      */
     public HTMLDocument[] getAllChildrenByNodeAttrib(String childrenNodeAttribKey, String childrenNodeAttribValue) {
-        return (HTMLDocument[]) StarSpider.HTML_PARSER.getDocumentByNodeAttrib(this.HTMLData, ConstantRegion.PARSER_NAME_HTML, childrenNodeAttribKey, childrenNodeAttribValue);
+        if (this.getAllChildrenByNodeAttrib != null) {
+            return this.getAllChildrenByNodeAttrib;
+        }
+        this.getAllChildrenByNodeAttrib = (HTMLDocument[]) StarSpider.HTML_PARSER.getDocumentByNodeAttrib(this.HTMLData, ConstantRegion.PARSER_NAME_HTML, childrenNodeAttribKey, childrenNodeAttribValue);
+        return this.getAllChildrenByNodeAttrib;
     }
 
     @Override

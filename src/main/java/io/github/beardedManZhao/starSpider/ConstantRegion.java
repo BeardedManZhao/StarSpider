@@ -1,4 +1,4 @@
-package starSpider;
+package io.github.beardedManZhao.starSpider;
 
 /**
  * 星蛛解析库常量区静态类，其中存储的都是全局经常使用的数据对象。

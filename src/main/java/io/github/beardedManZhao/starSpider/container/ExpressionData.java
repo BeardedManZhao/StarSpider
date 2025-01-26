@@ -1,6 +1,6 @@
-package starSpider.container;
+package io.github.beardedManZhao.starSpider.container;
 
-import core.container.CalculationNumberResults;
+import io.github.beardedManZhao.mathematicalExpression.core.container.CalculationNumberResults;
 
 /**
  * 数学表达式解析组件解析之后的表达式对象，封装了一个表达式的数据与计算信息。
@@ -15,7 +15,7 @@ public class ExpressionData implements Container {
     public final String Text;
     public final String formula;
 
-    public ExpressionData(core.container.CalculationNumberResults calculationNumberResults, String formula) {
+    public ExpressionData(CalculationNumberResults calculationNumberResults, String formula) {
         CalculationNumberResults = calculationNumberResults;
         this.Text = String.valueOf(calculationNumberResults.getResult());
         this.formula = formula;

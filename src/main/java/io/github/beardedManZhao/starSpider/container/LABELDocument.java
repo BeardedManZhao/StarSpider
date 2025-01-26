@@ -1,6 +1,6 @@
-package starSpider.container;
+package io.github.beardedManZhao.starSpider.container;
 
-import starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class LABELDocument implements Container {
         nowNodeText = text.length == 0 ? ConstantRegion.STRING_NULL : text[0];
         for (String s : text) {
             String trim = s.trim();
-            if (trim.length() != 0) {
+            if (!trim.isEmpty()) {
                 arrayList.add(trim);
             }
         }

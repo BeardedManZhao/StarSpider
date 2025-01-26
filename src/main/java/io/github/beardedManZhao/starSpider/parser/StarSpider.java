@@ -1,7 +1,7 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
 
 import java.io.*;
 import java.net.URL;
@@ -24,7 +24,7 @@ public final class StarSpider {
     public final static PatternParser PATTERN_PARSER = new PatternParser();
     public final static SQLStringParser SQL_STRING_PARSER = new SQLStringParser();
     public final static FastJsonParser JSON_PARSER = new FastJsonParser();
-    public final static float VERSION = 1.0f;
+    public final static float VERSION = 1.1f;
     private final static HashMap<String, Parser> STRING_PARSER_HASH_MAP = new HashMap<>();
 
     // 内置实现解析组件注册
@@ -133,17 +133,45 @@ public final class StarSpider {
      *                     Possible errors when reading file data
      */
     public static Container[] parse(File file, String parseName, String... args) throws IOException {
+        try (FileReader fileReader = new FileReader(file)) {
+            return parse(fileReader, parseName, args);
+        }
+    }
+
+    /**
+     * 使用指定的组件解析一份文件中的数据，使用IO流对一份数据进行加载，并将结果传递给解析器。
+     * <p>
+     * Use the specified component to parse the data in a file, use the IO stream to load the data, and pass the result to the parser.
+     *
+     * @param file      需要被解析的数据所在的文件数据reader
+     *                  <p>
+     *                  The file reader object of the data to be parsed
+     * @param parseName 解析数据时使用的数据解析器
+     *                  <p>
+     *                  Data parser used when parsing data
+     * @param args      解析数据所需要的参数，不同解析器由不同的实现
+     *                  <p>
+     *                  Parameters required for parsing data. Different parsers are implemented differently
+     * @return 解析器解析字符串数据之后的结果对象
+     * <p>
+     * The result object after the parser parses the string data
+     * @throws IOException 读取文件数据时可能发生的错误
+     *                     <p>
+     *                     Possible errors when reading file data
+     */
+    public static Container[] parse(FileReader file, String parseName, String... args) throws IOException {
         Parser parser = STRING_PARSER_HASH_MAP.get(parseName);
         if (parser != null) {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            final StringBuilder stringBuilder = new StringBuilder();
-            String s;
-            while ((s = bufferedReader.readLine()) != null) {
-                stringBuilder.append(s);
+            try (BufferedReader bufferedReader = new BufferedReader(file)) {
+                final StringBuilder stringBuilder = new StringBuilder();
+                String s;
+                while ((s = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(s);
+                }
+                Container[] parse = parse(stringBuilder.toString(), parser, args);
+                bufferedReader.close();
+                return parse;
             }
-            Container[] parse = parse(stringBuilder.toString(), parser, args);
-            bufferedReader.close();
-            return parse;
         } else {
             throw new RuntimeException("您想要使用的组件【" + parseName + "】似乎没有被注册，在这里没有找到它。\n" +
                     "It seems that the component [" + parseName + "] you want to use has not been registered, and it is not found here.");
@@ -183,22 +211,27 @@ public final class StarSpider {
     public static Container[] parse(URL url, String parseName, String... args) throws IOException {
         Parser parser = STRING_PARSER_HASH_MAP.get(parseName);
         if (parser != null) {
-            final InputStream inputStream = url.openStream();
-            final BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[ConstantRegion.Packet_size];
-            int offset;
-            while ((offset = bufferedInputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, offset);
-            }
-            bufferedInputStream.close();
-            inputStream.close();
-            byteArrayOutputStream.flush();
-            byteArrayOutputStream.close();
+            final ByteArrayOutputStream byteArrayOutputStream = getByteArrayOutputStream(url);
             return parse(byteArrayOutputStream.toString(), parser, args);
         } else {
             throw new RuntimeException("您想要使用的组件【" + parseName + "】似乎没有被注册，在这里没有找到它。\n" +
                     "It seems that the component [" + parseName + "] you want to use has not been registered, and it is not found here.");
         }
+    }
+
+    private static ByteArrayOutputStream getByteArrayOutputStream(URL url) throws IOException {
+        final InputStream inputStream = url.openStream();
+        final BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[ConstantRegion.Packet_size];
+        int offset;
+        while ((offset = bufferedInputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, offset);
+        }
+        bufferedInputStream.close();
+        inputStream.close();
+        byteArrayOutputStream.flush();
+        byteArrayOutputStream.close();
+        return byteArrayOutputStream;
     }
 }

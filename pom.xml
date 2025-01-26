@@ -5,7 +5,7 @@
 
     <groupId>io.github.BeardedManZhao</groupId>
     <artifactId>StarSpider</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <name>StarSpider</name>
     <description>StarSpider-java</description>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>io.github.BeardedManZhao</groupId>
             <artifactId>mathematical-expression</artifactId>
-            <version>1.2.4</version>
+            <version>1.4.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -1,8 +1,8 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
-import starSpider.container.LABELDocument;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.LABELDocument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class LABELParser implements Parser {
             String[] s1 = GREATER_THAN_SIGN_STRING_PATTERN.split(REGEXP_LABEL_REGULARITY_PATTERN.matcher(text[i]).replaceAll(ConstantRegion.COMMA_STRING));
             if (s1.length >= 2) {
                 for (String s : REGEXP_SPACE_ALL_PATTERN.split(s1[0])) {
-                    if (s.length() != 0) {
+                    if (!s.isEmpty()) {
                         String[] split = REGEXP_LABEL_ATTRIBUTE_SEGMENTATION.split(s);
                         if (split.length >= 2) {
                             hashMap.put(split[0].trim(), split[1].trim());
@@ -42,7 +42,7 @@ public class LABELParser implements Parser {
                     }
                 }
                 String s = s1[1];
-                if (s.length() != 0) {
+                if (!s.isEmpty()) {
                     String[] split = REGEXP_COMMA_ALL_PATTERN.split(s);
                     if (split.length != 0) {
                         arrayList.add(new LABELDocument(split, hashMap, nowNode));
@@ -50,7 +50,7 @@ public class LABELParser implements Parser {
                 }
             } else {
                 String s = s1[0];
-                if (s.length() != 0) {
+                if (!s.isEmpty()) {
                     String[] split = REGEXP_COMMA_ALL_PATTERN.split(s);
                     if (split.length != 0) {
                         arrayList.add(new LABELDocument(split, hashMap, nowNode));

@@ -1,6 +1,6 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.Container;
 
 /**
  * 解析器接口对象，所有的解析器由此类拓展，该类就是针对字符串对象做出解析操作的逻辑类。

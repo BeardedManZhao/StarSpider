@@ -1,8 +1,8 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
-import starSpider.container.HTMLDocument;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.HTMLDocument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,7 +95,7 @@ public class HTMLParser extends LABELParser {
         if (args.length >= 3) {
             Matcher matcher = Pattern.compile(getAttrRex(args[1], args[2])).matcher(data);
             ArrayList<HTMLDocument> arrayList = new ArrayList<>();
-            if (matcher.find()) {
+            while (matcher.find()) {
                 arrayList.add(getHtmlDocument(matcher.group(1), matcher));
             }
             return arrayList.toArray(new HTMLDocument[0]);
@@ -129,7 +129,7 @@ public class HTMLParser extends LABELParser {
         ArrayList<String> arrayList = new ArrayList<>(split.length + 16);
         for (String s : split) {
             String trim = s.trim();
-            if (trim.length() != 0) arrayList.add(trim);
+            if (!trim.isEmpty()) arrayList.add(trim);
         }
         return new HTMLDocument(arrayList.toArray(new String[0]), hashMap, nodeName, group);
     }

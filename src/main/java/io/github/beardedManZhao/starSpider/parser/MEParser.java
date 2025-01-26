@@ -1,13 +1,14 @@
-package starSpider.parser;
+package io.github.beardedManZhao.starSpider.parser;
 
-import core.calculation.number.BracketsCalculation2;
-import core.calculation.number.NumberCalculation;
-import core.calculation.number.PrefixExpressionOperation;
-import core.manager.CalculationManagement;
-import exceptional.WrongFormat;
-import starSpider.ConstantRegion;
-import starSpider.container.Container;
-import starSpider.container.ExpressionData;
+
+import io.github.beardedManZhao.mathematicalExpression.core.calculation.number.BracketsCalculation2;
+import io.github.beardedManZhao.mathematicalExpression.core.calculation.number.NumberCalculation;
+import io.github.beardedManZhao.mathematicalExpression.core.calculation.number.PrefixExpressionOperation;
+import io.github.beardedManZhao.mathematicalExpression.core.manager.CalculationManagement;
+import io.github.beardedManZhao.mathematicalExpression.exceptional.WrongFormat;
+import io.github.beardedManZhao.starSpider.ConstantRegion;
+import io.github.beardedManZhao.starSpider.container.Container;
+import io.github.beardedManZhao.starSpider.container.ExpressionData;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -55,7 +56,7 @@ public class MEParser implements Parser {
                 }
                 return arrayList.toArray(new ExpressionData[0]);
             }
-            NumberCalculation calculationByName = (NumberCalculation) CalculationManagement.getCalculationByName(args[0]);
+            final NumberCalculation calculationByName = (NumberCalculation) CalculationManagement.getCalculationByName(args[0]);
             while (matcher.find()) {
                 String group = matcher.group();
                 try {

@@ -1,4 +1,4 @@
-package starSpider.container;
+package io.github.beardedManZhao.starSpider.container;
 
 import strInfo.result.Statement;
 
